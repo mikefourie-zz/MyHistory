@@ -137,7 +137,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
                         WorkItemStore wis = context.TeamProjectCollection.GetService<WorkItemStore>();
                         if (wis != null)
                         {
-                            WorkItemCollection wic = wis.Query("SELECT [System.Id], [System.Title], [System.State] FROM WorkItems WHERE [System.WorkItemType] <> ''  AND  [System.State] <> ''  AND  [System.ChangedDate] > @Today - 3  AND  [System.AssignedTo] EVER @Me ORDER BY [System.Id]");
+                            WorkItemCollection wic = wis.Query("SELECT [System.Id], [System.Title], [System.State] FROM WorkItems WHERE [System.WorkItemType] <> ''  AND  [System.State] <> ''  AND  [System.ChangedDate] > @Today - 3  AND  [System.AssignedTo] EVER @Me ORDER BY [System.ChangedDate] desc");
                             foreach (WorkItem wi in wic)
                             {
                                 lworkItems.Add(wi);
