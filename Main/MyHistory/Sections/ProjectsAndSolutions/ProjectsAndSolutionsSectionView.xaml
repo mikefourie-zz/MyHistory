@@ -29,7 +29,7 @@
             </ListView.View>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
-                    <!--<Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>-->
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
                     <Setter Property="ToolTip">
                         <Setter.Value>
                             <Grid>
