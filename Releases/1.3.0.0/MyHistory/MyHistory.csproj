@@ -80,6 +80,10 @@
     <Compile Include="Internals\VSMruList.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\ExtensionImage.png">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\License.rtf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>

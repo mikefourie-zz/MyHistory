@@ -6,7 +6,7 @@
     <Description xml:space="preserve">Visual Studio ALM Rangers MyHistory Team Explorer Extension</Description>
     <MoreInfo>http://visualstudiogallery.msdn.microsoft.com/5cd2ba57-5e52-493c-a581-b3f7571f0aec</MoreInfo>
     <License>Resources\License.rtf</License>
-    <Icon>Resources\MyHistory.png</Icon>
+    <Icon>Resources\ExtensionImage.png</Icon>
     <Tags>Team Explorer, ALM Rangers</Tags>
   </Metadata>
   <Installation>
