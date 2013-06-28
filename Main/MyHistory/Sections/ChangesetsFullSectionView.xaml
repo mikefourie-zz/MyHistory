@@ -35,6 +35,14 @@
                         </Style>
                     </GridView.ColumnHeaderContainerStyle>
                     <GridViewColumn>
+                        <GridViewColumnHeader Content="CreationDate"/>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=CreationDate}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn>
                         <GridViewColumnHeader Content="Changeset"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

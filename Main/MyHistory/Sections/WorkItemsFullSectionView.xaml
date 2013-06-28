@@ -20,6 +20,14 @@
                         </Style>
                     </GridView.ColumnHeaderContainerStyle>
                     <GridViewColumn>
+                        <GridViewColumnHeader Content="ChangedDate"/>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=ChangedDate}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn>
                         <GridViewColumnHeader Content="Work Item"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
