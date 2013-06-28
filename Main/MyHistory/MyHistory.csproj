@@ -53,31 +53,60 @@
     <Compile Include="Base\TeamExplorerBaseNavigationLink.cs" />
     <Compile Include="Base\TeamExplorerBasePage.cs" />
     <Compile Include="Base\TeamExplorerBaseSection.cs" />
+    <Compile Include="ChangsetsLink.cs" />
+    <Compile Include="Sections\ChangesetsFullSection.cs" />
+    <Compile Include="Sections\ChangesetsFullSectionView.xaml.cs">
+      <DependentUpon>ChangesetsFullSectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sections\WorkItemsFullSection.cs" />
+    <Compile Include="Sections\WorkItemsFullSectionView.xaml.cs">
+      <DependentUpon>WorkItemsFullSectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WorkItemsLink.cs" />
     <Compile Include="Internals\ChangesSectionContext.cs" />
     <Compile Include="Internals\ListExtension.cs" />
+    <Compile Include="Pages\ChangesetsPage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pages\ShelvesetsPage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pages\WorkItemsPage.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\ALMRangersCommonAssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
-    <Compile Include="Sections\Changesets\ChangesetsSection.cs" />
-    <Compile Include="Sections\MyHistoryNavigationItem.cs" />
+    <Compile Include="Sections\MyHistory\Changesets\ChangesetsSection.cs" />
+    <Compile Include="MyHistoryNavigationItem.cs" />
     <Compile Include="Internals\MyHistoryPackage.cs" />
-    <Compile Include="Sections\MyHistoryPage.cs" />
+    <Compile Include="Pages\MyHistoryPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sections\Changesets\ChangesetsSectionView.xaml.cs">
+    <Compile Include="Sections\MyHistory\Changesets\ChangesetsSectionView.xaml.cs">
       <DependentUpon>ChangesetsSectionView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sections\ProjectsAndSolutions\ProjectsAndSolutionsSection.cs" />
-    <Compile Include="Sections\ProjectsAndSolutions\ProjectsAndSolutionsSectionView.xaml.cs">
+    <Compile Include="Sections\MyHistory\ProjectsAndSolutions\ProjectsAndSolutionsSection.cs" />
+    <Compile Include="Sections\MyHistory\ProjectsAndSolutions\ProjectsAndSolutionsSectionView.xaml.cs">
       <DependentUpon>ProjectsAndSolutionsSectionView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sections\Shelvesets\ShelvesetsSection.cs" />
-    <Compile Include="Sections\Shelvesets\ShelvesetsSectionView.xaml.cs">
+    <Compile Include="Sections\MyHistory\Shelvesets\ShelvesetsSection.cs" />
+    <Compile Include="Sections\MyHistory\Shelvesets\ShelvesetsSectionView.xaml.cs">
       <DependentUpon>ShelvesetsSectionView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sections\WorkItems\WorkItemsSection.cs" />
-    <Compile Include="Sections\WorkItems\WorkItemsSectionView.xaml.cs">
+    <Compile Include="Sections\MyHistory\WorkItems\WorkItemsSection.cs" />
+    <Compile Include="Sections\MyHistory\WorkItems\WorkItemsSectionView.xaml.cs">
       <DependentUpon>WorkItemsSectionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Internals\VSMruList.cs" />
+    <Compile Include="Sections\ShelvesetsFullSection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Sections\ShelvesetsFullSectionView.xaml.cs">
+      <DependentUpon>ShelvesetsFullSectionView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ShelvesetsLink.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\ExtensionImage.png">
@@ -183,19 +212,31 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Sections\Changesets\ChangesetsSectionView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Sections\ProjectsAndSolutions\ProjectsAndSolutionsSectionView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Sections\Shelvesets\ShelvesetsSectionView.xaml">
+    <Page Include="Sections\ChangesetsFullSectionView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Sections\WorkItems\WorkItemsSectionView.xaml">
+    <Page Include="Sections\MyHistory\Changesets\ChangesetsSectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sections\MyHistory\ProjectsAndSolutions\ProjectsAndSolutionsSectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sections\MyHistory\Shelvesets\ShelvesetsSectionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sections\MyHistory\WorkItems\WorkItemsSectionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sections\ShelvesetsFullSectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sections\WorkItemsFullSectionView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

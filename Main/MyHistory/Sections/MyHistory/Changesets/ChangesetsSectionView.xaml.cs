@@ -1,10 +1,7 @@
 ﻿// <copyright file="ChangesetsSectionView.xaml.cs" company="Microsoft Corporation">Copyright Microsoft Corporation. All Rights Reserved. This code released under the terms of the Microsoft Public License (MS-PL, http://opensource.org/licenses/ms-pl.html.) This is sample code only, do not use in production environments.</copyright>
 namespace Microsoft.ALMRangers.Samples.MyHistory
 {
-    using System;
-    using System.Text;
     using System.Windows;
-    using System.Windows.Data;
     using System.Windows.Input;
     using Microsoft.TeamFoundation.VersionControl.Client;
 
@@ -84,34 +81,6 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
                     this.ParentSection.ViewChangesetDetails(changeset.ChangesetId);
                 }
             }
-        }
-    }
-
-    /// <summary>
-    /// Changeset comment converter class.
-    /// </summary>
-    public class ChangesetCommentConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            string comment = (value is string) ? (string)value : string.Empty;
-            StringBuilder sb = new StringBuilder(comment);
-            sb.Replace('\r', ' ');
-            sb.Replace('\n', ' ');
-            sb.Replace('\t', ' ');
-
-            if (sb.Length > 64)
-            {
-                sb.Remove(61, sb.Length - 61);
-                sb.Append("...");
-            }
-
-            return sb.ToString();
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            return null;
         }
     }
 }

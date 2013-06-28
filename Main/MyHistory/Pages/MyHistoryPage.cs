@@ -4,7 +4,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
     using Microsoft.TeamFoundation.Controls;
 
     /// <summary>
-    /// MyHistory Page. We are extending Team Explorer by adding a new page and therefore use the TeamExplorerPage attribute and pass in our unique ID
+    /// We are extending Team Explorer by adding a new page and therefore use the TeamExplorerPage attribute and pass in our unique ID
     /// </summary>
     [TeamExplorerPage(MyHistoryPage.PageId)]
     public class MyHistoryPage : TeamExplorerBasePage
