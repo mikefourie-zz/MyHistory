@@ -10,7 +10,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
     using Microsoft.TeamFoundation.WorkItemTracking.Client;
     using Microsoft.VisualStudio.TeamFoundation.WorkItemTracking;
 
-    [TeamExplorerSection(WorkItemsSection.SectionId, MyHistoryPage.PageId, 30)]
+    [TeamExplorerSection(WorkItemsSection.SectionId, MyHistoryPage.PageId, 10)]
     public class WorkItemsSection : TeamExplorerBaseSection
     {
         public const string SectionId = "03597647-2F81-42B0-AA45-0D8E6DD54679";

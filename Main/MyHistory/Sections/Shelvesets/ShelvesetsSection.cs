@@ -12,7 +12,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
     using Microsoft.VisualStudio.Shell.Interop;
     using Microsoft.VisualStudio.TeamFoundation.VersionControl;
 
-    [TeamExplorerSection(ShelvesetsSection.SectionId, MyHistoryPage.PageId, 10)]
+    [TeamExplorerSection(ShelvesetsSection.SectionId, MyHistoryPage.PageId, 30)]
     public class ShelvesetsSection : TeamExplorerBaseSection
     {
         public const string SectionId = "84CF38B4-E83D-47F2-942F-133B20C3F733";
