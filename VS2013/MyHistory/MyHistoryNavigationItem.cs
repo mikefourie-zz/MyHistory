@@ -17,7 +17,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
         {
             this.Text = "My History";
             this.IsVisible = true;
-
+            
             Image bmp = Image.FromStream(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("Microsoft.ALMRangers.Samples.MyHistory.Resources.MyHistory.png"));
             this.Image = bmp;
         }
