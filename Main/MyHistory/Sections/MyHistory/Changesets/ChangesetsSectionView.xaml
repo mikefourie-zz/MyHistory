@@ -3,22 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.11.0"
-             xmlns:local="clr-namespace:Microsoft.ALMRangers.Samples.MyHistory"
+             xmlns:mvvm="clr-namespace:Microsoft.TeamFoundation.MVVM;assembly=Microsoft.TeamFoundation.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
                           DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../../../Resources/ResourceDictionary.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <ResourceDictionary Source="../../../Resources/ResourceDictionary.xaml" />
     </UserControl.Resources>
     <Grid Margin="6,6,6,6">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!-- Action links -->
@@ -29,6 +24,7 @@
         <!-- Changesets list view -->
         <ListView x:Name="changesetList" Grid.Row="1" ItemsSource="{Binding Path=ParentSection.Changesets}" BorderThickness="0"
                   SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                  mvvm:FrameworkElementBehaviors.IgnoreMouseWheel="True"  
                   MouseDoubleClick="ChangesetList_MouseDoubleClick" KeyDown="ChangesetList_KeyDown">
             <ListView.View>
                 <GridView>
@@ -57,7 +53,6 @@
             </ListView.View>
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource {x:Type ListViewItem}}">
-                    <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
                     <Setter Property="ToolTip">
                         <Setter.Value>
                             <Grid>
