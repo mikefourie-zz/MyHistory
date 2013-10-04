@@ -8,6 +8,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
               DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/ResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid Margin="6,6,6,6">
         <ListView x:Name="ListViewShelvesets" ItemsSource="{Binding Path=ParentSection.Shelvesets}" BorderThickness="0"
                   SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Hidden" MouseDoubleClick="ListViewShelvesets_MouseDoubleClick"  KeyDown="ListViewShelvesets_KeyDown">
@@ -37,7 +44,7 @@
                 </GridView>
             </ListView.View>
             <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
+                <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource {x:Type ListViewItem}}">
                     <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
                     <Setter Property="ToolTip">
                         <Setter.Value>
