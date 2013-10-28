@@ -31,7 +31,7 @@
                         <GridViewColumnHeader Content="ChangedDate"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Path=ChangedDate}"/>
+                                <TextBlock Text="{Binding Path=ChangedDate, StringFormat={}{0:ddd dd MMM}}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
