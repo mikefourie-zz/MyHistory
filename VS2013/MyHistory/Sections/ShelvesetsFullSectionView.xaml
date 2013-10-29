@@ -29,7 +29,7 @@
                         <GridViewColumnHeader Content="CreationDate"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Path=CreationDate, StringFormat={}{0:ddd dd MMM}}"/>
+                                <TextBlock Text="{Binding Path=CreationDate, StringFormat={}{0:ddd dd MMM HH:mm}}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -59,7 +59,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,6,3" Text="Creation Date:" FontWeight="Bold"/>
-                                <TextBlock Grid.Row="0" Grid.Column="1" Margin="0,0,0,3" Text="{Binding Path=CreationDate, StringFormat={}{0:ddd dd MMM}}"/>
+                                <TextBlock Grid.Row="0" Grid.Column="1" Margin="0,0,0,3" Text="{Binding Path=CreationDate, StringFormat={}{0:ddd dd MMM HH:mm}}"/>
                                 <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,0,6,3" Text="Comment:" FontWeight="Bold"/>
                                 <TextBlock Grid.Row="1" Grid.Column="1" Margin="0,0,0,3" Text="{Binding Path=Comment}"/>
                             </Grid>
