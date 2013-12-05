@@ -49,11 +49,6 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
             }
         }
 
-        private void Search_Click(object sender, RoutedEventArgs e)
-        {
-            this.PerformSearch();
-        }
-
         private void TextBoxSearch_KeyUp(object sender, KeyEventArgs e)
         {
             this.TextBoxSearch.Foreground = Brushes.Black;
