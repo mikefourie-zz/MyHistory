@@ -179,11 +179,10 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
                 if (vcs != null)
                 {
                     // Ask the derived section for the history parameters
-                    string path = "$/" + context.TeamProjectName;
                     string user;
                     int maxCount;
                     this.GetHistoryParameters(vcs, out user, out maxCount);
-
+                    string path = "$/" + context.TeamProjectName;
                     VersionControlExt vc = GetVersionControlExt(this.ServiceProvider);
                     if (vc != null)
                     {
@@ -260,7 +259,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
                             // Ask the derived section for the history parameters
                             string user;
                             int maxCount;
-                            GetHistoryParameters(vcs, out user, out maxCount);
+                            this.GetHistoryParameters(vcs, out user, out maxCount);
                             string path = "$/" + context.TeamProjectName;
                             foreach (Changeset changeset in vcs.QueryHistory(path, VersionSpec.Latest, 0, RecursionType.Full, user, null, null, maxCount, false, true))
                             {
