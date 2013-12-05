@@ -13,11 +13,15 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
         public const string LinkId = "e49a882b-1677-46a9-93b4-db290943bbcd";
 
         [ImportingConstructor]
-        public MyHistoryNavigationItem([Import(typeof(SVsServiceProvider))] IServiceProvider serviceProvider) : base(serviceProvider)
+        public MyHistoryNavigationItem([Import(typeof(SVsServiceProvider))] IServiceProvider serviceProvider)
+            : base(serviceProvider)
         {
             this.Text = "My History";
-            this.IsVisible = true;
-            
+            if (this.CurrentContext != null && this.CurrentContext.HasCollection && this.CurrentContext.HasTeamProject)
+            {
+                this.IsVisible = true;
+            }
+
             Image bmp = Image.FromStream(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("Microsoft.ALMRangers.Samples.MyHistory.Resources.MyHistory.png"));
             this.Image = bmp;
         }
@@ -29,7 +33,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
                 ITeamExplorer teamExplorer = GetService<ITeamExplorer>();
                 if (teamExplorer != null)
                 {
-                   teamExplorer.NavigateToPage(new Guid(MyHistoryPage.PageId), null);
+                    teamExplorer.NavigateToPage(new Guid(MyHistoryPage.PageId), null);
                 }
             }
             catch (Exception ex)
@@ -37,11 +41,18 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
                 this.ShowNotification(ex.Message, NotificationType.Error);
             }
         }
-        
+
         public override void Invalidate()
         {
             base.Invalidate();
-            this.IsVisible = true;
+            if (this.CurrentContext != null && this.CurrentContext.HasCollection && this.CurrentContext.HasTeamProject)
+            {
+                this.IsVisible = true;
+            }
+            else
+            {
+                this.IsVisible = false;
+            }
         }
     }
 }
