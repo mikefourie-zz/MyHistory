@@ -100,9 +100,9 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
             sb.Replace('\n', ' ');
             sb.Replace('\t', ' ');
 
-            if (sb.Length > 64)
+            if (sb.Length > 50)
             {
-                sb.Remove(61, sb.Length - 61);
+                sb.Remove(50, sb.Length - 50);
                 sb.Append("...");
             }
 

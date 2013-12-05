@@ -8,7 +8,7 @@
              d:DesignHeight="300" d:DesignWidth="300"
                                      DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <UserControl.Resources>
-         <ResourceDictionary Source="../Resources/ResourceDictionary.xaml" />
+        <ResourceDictionary Source="/Microsoft.ALMRangers.Samples.MyHistory;component/Resources/ResourceDictionary.xaml" />
     </UserControl.Resources>
     <Grid Margin="6,6,6,6">
         <Grid.RowDefinitions>
