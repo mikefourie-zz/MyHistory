@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Microsoft.ALMRangers.Samples.MyHistory.MyHistoryNavigationLink" Collapsed="true">
+    <Position X="4" Y="2.75" Width="2.5" />
+    <InheritanceLine Type="Microsoft.ALMRangers.Samples.MyHistory.TeamExplorerBaseNavigationLink" FixedToPoint="true">
+      <Path>
+        <Point X="5.25" Y="2.441" />
+        <Point X="5.25" Y="2.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAQAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Sections\MyHistoryNavigationLink.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Microsoft.ALMRangers.Samples.MyHistory.MyHistoryPage" Collapsed="true">
+    <Position X="6.75" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Sections\MyHistoryPage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Microsoft.ALMRangers.Samples.MyHistory.TeamExplorerBase" Collapsed="true">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAECACAAAAAAAAAAEAAAgAARAAAAQQAIAAAAAGA=</HashCode>
+      <FileName>Base\TeamExplorerBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Microsoft.ALMRangers.Samples.MyHistory.TeamExplorerBaseNavigationLink" Collapsed="true">
+    <Position X="4" Y="1.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAEQQAABEAAAAAAAAAAAAIAAAACAAAAAA=</HashCode>
+      <FileName>Base\TeamExplorerBaseNavigationLink.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Microsoft.ALMRangers.Samples.MyHistory.TeamExplorerBasePage" Collapsed="true">
+    <Position X="6.75" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAFAAUAAAWAAAABgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Base\TeamExplorerBasePage.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Microsoft.ALMRangers.Samples.MyHistory.TeamExplorerBaseSection" Collapsed="true">
+    <Position X="9" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAQAFAEUAABVAAAARAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Base\TeamExplorerBaseSection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Microsoft.ALMRangers.Samples.MyHistory.ChangesetsSection" Collapsed="true">
+    <Position X="9" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAFAAAFAAQAAAEAAAAAAAAABAAAAAAAAAAAQCIQ=</HashCode>
+      <FileName>Sections\Changesets\ChangesetsSection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
