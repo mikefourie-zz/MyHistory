@@ -20,7 +20,11 @@
 
         <!-- Search -->
         <WrapPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,6">
-            <TextBox Name="TextBoxSearch" ToolTip="Search by User Account / Display Name. Press [ENTER] to search." KeyUp="TextBoxSearch_KeyUp" Background="#FFEFEFF2" Width="240"/>
+            <TextBox Name="TextBoxSearch" KeyUp="TextBoxSearch_KeyUp" Background="#FFEFEFF2" Width="240">
+                <TextBox.ToolTip>
+                    <TextBlock>Search by User Account or Display name<LineBreak />Press [ENTER] to search.</TextBlock>
+                </TextBox.ToolTip>
+            </TextBox>
         </WrapPanel>
 
         <!-- WorkItems -->
