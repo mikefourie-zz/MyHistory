@@ -1,10 +1,12 @@
 ﻿// <copyright file="SummarySectionView.xaml.cs" company="Microsoft Corporation">Copyright Microsoft Corporation. All Rights Reserved. This code released under the terms of the Microsoft Public License (MS-PL, http://opensource.org/licenses/ms-pl.html.) This is sample code only, do not use in production environments.</copyright>
 namespace Microsoft.ALMRangers.Samples.MyHistory
 {
+    using System;
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Media;
     using Microsoft.TeamFoundation.Client;
+    using Microsoft.TeamFoundation.Controls;
     using Microsoft.TeamFoundation.Framework.Client;
     using Microsoft.TeamFoundation.Framework.Common;
     using Microsoft.TeamFoundation.VersionControl.Client;
@@ -96,6 +98,24 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
         private void HistoryLink_Click(object sender, RoutedEventArgs e)
         {
             this.ParentSection.ViewHistory();
+        }
+
+        private void WorkItemLink_Click(object sender, RoutedEventArgs e)
+        {
+            ITeamExplorer teamExplorer = this.ParentSection.GetService<ITeamExplorer>();
+            if (teamExplorer != null)
+            {
+                teamExplorer.NavigateToPage(new Guid(WorkItemsPage.PageId), null);
+            }
+        }
+
+        private void ShelvesetsLink_Click(object sender, RoutedEventArgs e)
+        {
+            ITeamExplorer teamExplorer = this.ParentSection.GetService<ITeamExplorer>();
+            if (teamExplorer != null)
+            {
+                teamExplorer.NavigateToPage(new Guid(ShelvesetsPage.PageId), null);
+            }
         }
 
         private void ChangesetList_MouseDoubleClick(object sender, MouseButtonEventArgs e)

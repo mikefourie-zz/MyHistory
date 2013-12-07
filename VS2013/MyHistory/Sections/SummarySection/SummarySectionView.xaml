@@ -29,7 +29,7 @@
 
         <!-- WorkItems -->
         <WrapPanel Orientation="Vertical" Grid.Row="1" Margin="0,0,0,6">
-            <TextBlock FontWeight="Bold">Work Items</TextBlock>
+            <TextBlock FontWeight="Bold"><Hyperlink x:Name="WorkItemLink" Click="WorkItemLink_Click">Work Items</Hyperlink></TextBlock>
             <ListView x:Name="workItemList" ItemsSource="{Binding Path=ParentSection.WorkItems}" BorderThickness="0"
                   SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                   MouseDoubleClick="WorkItemList_MouseDoubleClick" KeyDown="WorkItemList_KeyDown"
@@ -129,7 +129,7 @@
 
         <!-- Shelvesets -->
         <WrapPanel Orientation="Vertical" Grid.Row="3" Margin="0,0,0,6">
-            <TextBlock FontWeight="Bold">Shelvesets</TextBlock>
+            <TextBlock FontWeight="Bold"><Hyperlink x:Name="ShelvesetsLink" Click="ShelvesetsLink_Click">Shelvesets</Hyperlink></TextBlock>
             <ListView x:Name="ListViewShelvesets" ItemsSource="{Binding Path=ParentSection.Shelvesets}" BorderThickness="0"
                   SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
                   MouseDoubleClick="ListViewShelvesets_MouseDoubleClick"  

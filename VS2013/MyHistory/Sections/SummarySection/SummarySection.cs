@@ -225,7 +225,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
         /// </summary>
         private void GetHistoryParameters(VersionControlServer vcs, out string user, out int maxCount)
         {
-            maxCount = 10;
+            maxCount = 12;
             user = this.UserAccountName != "@Me" ? this.UserAccountName : vcs.AuthorizedUser;
         }
 
@@ -375,7 +375,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
                             {
                                 lworkItems.Add(wi);
                                 i++;
-                                if (i >= 10)
+                                if (i >= 12)
                                 {
                                     break;
                                 }
