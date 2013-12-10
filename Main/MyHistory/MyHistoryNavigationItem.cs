@@ -16,7 +16,10 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
         public MyHistoryNavigationItem([Import(typeof(SVsServiceProvider))] IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.Text = "My History";
-            this.IsVisible = true;
+            if (this.CurrentContext != null && this.CurrentContext.HasCollection && this.CurrentContext.HasTeamProject)
+            {
+                this.IsVisible = true;
+            }
 
             Image bmp = Image.FromStream(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("Microsoft.ALMRangers.Samples.MyHistory.Resources.MyHistory.png"));
             this.Image = bmp;
@@ -41,7 +44,14 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
         public override void Invalidate()
         {
             base.Invalidate();
-            this.IsVisible = true;
+            if (this.CurrentContext != null && this.CurrentContext.HasCollection && this.CurrentContext.HasTeamProject)
+            {
+                this.IsVisible = true;
+            }
+            else
+            {
+                this.IsVisible = false;
+            }
         }
     }
 }
