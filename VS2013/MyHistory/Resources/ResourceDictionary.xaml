@@ -83,20 +83,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-    <!--TODO: need to fix the theme support on the new textbox
     
-    <Style TargetType="{x:Type TextBox}">
-        <Setter Property="Control.Background" Value="{StaticResource ItemBrushKey}" />
-        <Setter Property="Control.Foreground" Value="{StaticResource ItemTextBrushKey}" />
-        <Setter Property="Control.BorderBrush" Value="{StaticResource ItemBorderBrushKey}" />
-        <Setter Property="Control.BorderThickness" Value="1" />
-        <Setter Property="Control.HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
-        <Setter Property="Control.VerticalContentAlignment" Value="{Binding VerticalContentAlignment,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
-        <Setter Property="Control.Padding" Value="0" />
-        <Setter Property="FrameworkElement.Margin" Value="0" />
-    </Style>-->
-
     <!-- Converters -->
     <local:ChangesetCommentConverter x:Key="ChangesetCommentConverter"/>
 </ResourceDictionary>

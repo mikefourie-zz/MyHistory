@@ -4,7 +4,6 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
     using System;
     using System.Windows;
     using System.Windows.Input;
-    using System.Windows.Media;
     using Microsoft.TeamFoundation.Client;
     using Microsoft.TeamFoundation.Controls;
     using Microsoft.TeamFoundation.Framework.Client;
@@ -53,8 +52,6 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
 
         private void TextBoxSearch_KeyUp(object sender, KeyEventArgs e)
         {
-            this.TextBoxSearch.Foreground = Brushes.Black;
-
             if (e.Key == Key.Enter)
             {
                 this.PerformSearch();
@@ -63,8 +60,6 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
 
         private void PerformSearch()
         {
-            this.TextBoxSearch.Foreground = Brushes.Black;
-
             if (!string.IsNullOrWhiteSpace(this.TextBoxSearch.Text))
             {
                 ITeamFoundationContext context = this.ParentSection.GetContext();
@@ -78,7 +73,6 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
                     userIdentity = ims.ReadIdentity(IdentitySearchFactor.DisplayName, this.TextBoxSearch.Text, MembershipQuery.None, ReadIdentityOptions.ExtendedProperties);
                     if (userIdentity == null)
                     {
-                        this.TextBoxSearch.Foreground = Brushes.DarkRed;
                         return;
                     }
                 }

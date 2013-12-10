@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="27D10EAA-F39C-478B-8F7C-3067B7613C9A" Version="1.12.8.0" Language="en-US" Publisher="ALM Rangers" />
+        <Identity Id="27D10EAA-F39C-478B-8F7C-3067B7613C9A" Version="1.12.9.0" Language="en-US" Publisher="ALM Rangers" />
         <DisplayName>MyHistory for Visual Studio 2013</DisplayName>
         <Description xml:space="preserve">Visual Studio ALM Rangers MyHistory Team Explorer Extension for Visual Studio 2013 - by Mike Fourie</Description>
         <MoreInfo>http://visualstudiogallery.msdn.microsoft.com/5cd2ba57-5e52-493c-a581-b3f7571f0aec</MoreInfo>
