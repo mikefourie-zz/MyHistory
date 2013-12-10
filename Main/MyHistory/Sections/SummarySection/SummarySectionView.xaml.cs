@@ -1,10 +1,11 @@
 ﻿// <copyright file="SummarySectionView.xaml.cs" company="Microsoft Corporation">Copyright Microsoft Corporation. All Rights Reserved. This code released under the terms of the Microsoft Public License (MS-PL, http://opensource.org/licenses/ms-pl.html.) This is sample code only, do not use in production environments.</copyright>
 namespace Microsoft.ALMRangers.Samples.MyHistory
 {
+    using System;
     using System.Windows;
     using System.Windows.Input;
-    using System.Windows.Media;
     using Microsoft.TeamFoundation.Client;
+    using Microsoft.TeamFoundation.Controls;
     using Microsoft.TeamFoundation.Framework.Client;
     using Microsoft.TeamFoundation.Framework.Common;
     using Microsoft.TeamFoundation.VersionControl.Client;
@@ -56,8 +57,6 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
 
         private void TextBoxSearch_KeyUp(object sender, KeyEventArgs e)
         {
-            this.TextBoxSearch.Foreground = Brushes.Black;
-
             if (e.Key == Key.Enter)
             {
                 this.PerformSearch();
@@ -66,8 +65,6 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
 
         private void PerformSearch()
         {
-            this.TextBoxSearch.Foreground = Brushes.Black;
-
             if (!string.IsNullOrWhiteSpace(this.TextBoxSearch.Text))
             {
                 ITeamFoundationContext context = this.ParentSection.GetContext();
@@ -81,7 +78,6 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
                     userIdentity = ims.ReadIdentity(IdentitySearchFactor.DisplayName, this.TextBoxSearch.Text, MembershipQuery.None, ReadIdentityOptions.ExtendedProperties);
                     if (userIdentity == null)
                     {
-                        this.TextBoxSearch.Foreground = Brushes.DarkRed;
                         return;
                     }
                 }
@@ -101,6 +97,24 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
         private void HistoryLink_Click(object sender, RoutedEventArgs e)
         {
             this.ParentSection.ViewHistory();
+        }
+
+        private void WorkItemLink_Click(object sender, RoutedEventArgs e)
+        {
+            ITeamExplorer teamExplorer = this.ParentSection.GetService<ITeamExplorer>();
+            if (teamExplorer != null)
+            {
+                teamExplorer.NavigateToPage(new Guid(WorkItemsPage.PageId), null);
+            }
+        }
+
+        private void ShelvesetsLink_Click(object sender, RoutedEventArgs e)
+        {
+            ITeamExplorer teamExplorer = this.ParentSection.GetService<ITeamExplorer>();
+            if (teamExplorer != null)
+            {
+                teamExplorer.NavigateToPage(new Guid(ShelvesetsPage.PageId), null);
+            }
         }
 
         private void ChangesetList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
