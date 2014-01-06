@@ -1,4 +1,4 @@
-﻿// <copyright file="ShelvesetsFullSectionView.xaml.cs" company="Microsoft Corporation">Copyright Microsoft Corporation. All Rights Reserved. This code released under the terms of the Microsoft Public License (MS-PL, http://opensource.org/licenses/ms-pl.html.) This is sample code only, do not use in production environments.</copyright>
+﻿// <copyright file="ShelvesetsView.xaml.cs" company="Microsoft Corporation">Copyright Microsoft Corporation. All Rights Reserved. This code released under the terms of the Microsoft Public License (MS-PL, http://opensource.org/licenses/ms-pl.html.) This is sample code only, do not use in production environments.</copyright>
 namespace Microsoft.ALMRangers.Samples.MyHistory
 {
     using System.Windows;
@@ -8,20 +8,20 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
     /// <summary>
     /// Shelvesets Section View
     /// </summary>
-    public partial class ShelvesetsFullSectionView
+    public partial class ShelvesetsView
     {
-        public static readonly DependencyProperty ParentSectionProperty = DependencyProperty.Register("ParentSection", typeof(ShelvesetsFullSection), typeof(ShelvesetsFullSectionView));
+        public static readonly DependencyProperty ParentSectionProperty = DependencyProperty.Register("ParentSection", typeof(ShelvesetsPage), typeof(ShelvesetsView));
 
-        public ShelvesetsFullSectionView()
+        public ShelvesetsView()
         {
             this.InitializeComponent();
         }
 
-        public ShelvesetsFullSection ParentSection
+        public ShelvesetsPage ParentSection
         {
             get
             {
-                return (ShelvesetsFullSection)GetValue(ParentSectionProperty);
+                return (ShelvesetsPage)GetValue(ParentSectionProperty);
             }
 
             set

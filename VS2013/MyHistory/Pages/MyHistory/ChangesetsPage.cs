@@ -1,4 +1,4 @@
-﻿// <copyright file="ChangesetsFullSection.cs" company="Microsoft Corporation">Copyright Microsoft Corporation. All Rights Reserved. This code released under the terms of the Microsoft Public License (MS-PL, http://opensource.org/licenses/ms-pl.html.) This is sample code only, do not use in production environments.</copyright>
+﻿// <copyright file="ChangesetsPage.cs" company="Microsoft Corporation">Copyright Microsoft Corporation. All Rights Reserved. This code released under the terms of the Microsoft Public License (MS-PL, http://opensource.org/licenses/ms-pl.html.) This is sample code only, do not use in production environments.</copyright>
 namespace Microsoft.ALMRangers.Samples.MyHistory
 {
     using System;
@@ -11,22 +11,24 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
     using Microsoft.VisualStudio.Shell.Interop;
     using Microsoft.VisualStudio.TeamFoundation.VersionControl;
 
-    [TeamExplorerSection(ChangesetsFullSection.SectionId, ChangesetsPage.PageId, 20)]
-    public class ChangesetsFullSection : TeamExplorerBaseSection
+    /// <summary>
+    /// We are extending Team Explorer by adding a new page and therefore use the TeamExplorerPage attribute and pass in our unique ID
+    /// </summary>
+    [TeamExplorerPage(ChangesetsPage.PageId)]
+    public class ChangesetsPage : TeamExplorerBasePage
     {
-        public const string SectionId = "64D49EFD-C684-4525-A5F3-46FB4E326DAD";
+        // All Pages must have a unique ID. Use the Tools - Create GUID menu in Visual Studio to create your own GUID
+        public const string PageId = "234C4E71-D513-40CC-8CF0-AAB67DAD2C1E";
         private ObservableCollection<Changeset> changesets = new ObservableCollection<Changeset>();
 
-        public ChangesetsFullSection()
+        public ChangesetsPage()
         {
-            this.Title = "Changesets";
-            this.IsVisible = true;
-            this.IsExpanded = true;
-            this.IsBusy = false;
-            this.SectionContent = new ChangesetsFullSectionView();
+            // Set the page title
+            this.Title = "My History - Changesets";
+            this.PageContent = new ChangesetsView();
             this.View.ParentSection = this;
         }
-        
+
         public ObservableCollection<Changeset> Changesets
         {
             get
@@ -41,9 +43,9 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
             }
         }
 
-        protected ChangesetsFullSectionView View
+        protected ChangesetsView View
         {
-            get { return this.SectionContent as ChangesetsFullSectionView; }
+            get { return this.PageContent as ChangesetsView; }
         }
 
         public static VersionControlExt GetVersionControlExt(IServiceProvider serviceProvider)
@@ -69,7 +71,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
             }
         }
 
-        public async override void Initialize(object sender, SectionInitializeEventArgs e)
+        public async override void Initialize(object sender, PageInitializeEventArgs e)
         {
             base.Initialize(sender, e);
 
@@ -123,7 +125,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
         /// <summary>
         /// Save contextual information about the current section state.
         /// </summary>
-        public override void SaveContext(object sender, SectionSaveContextEventArgs e)
+        public override void SaveContext(object sender, PageSaveContextEventArgs e)
         {
             base.SaveContext(sender, e);
 

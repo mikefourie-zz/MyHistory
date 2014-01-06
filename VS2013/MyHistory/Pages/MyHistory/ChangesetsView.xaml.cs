@@ -1,4 +1,4 @@
-﻿// <copyright file="ChangesetsFullSectionView.xaml.cs" company="Microsoft Corporation">Copyright Microsoft Corporation. All Rights Reserved. This code released under the terms of the Microsoft Public License (MS-PL, http://opensource.org/licenses/ms-pl.html.) This is sample code only, do not use in production environments.</copyright>
+﻿// <copyright file="ChangesetsView.xaml.cs" company="Microsoft Corporation">Copyright Microsoft Corporation. All Rights Reserved. This code released under the terms of the Microsoft Public License (MS-PL, http://opensource.org/licenses/ms-pl.html.) This is sample code only, do not use in production environments.</copyright>
 namespace Microsoft.ALMRangers.Samples.MyHistory
 {
     using System;
@@ -11,20 +11,20 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
     /// <summary>
     /// Changesets Section View
     /// </summary>
-    public partial class ChangesetsFullSectionView
+    public partial class ChangesetsView
     {
-        public static readonly DependencyProperty ParentSectionProperty = DependencyProperty.Register("ParentSection", typeof(ChangesetsFullSection), typeof(ChangesetsFullSectionView));
+        public static readonly DependencyProperty ParentSectionProperty = DependencyProperty.Register("ParentSection", typeof(ChangesetsPage), typeof(ChangesetsView));
 
-        public ChangesetsFullSectionView()
+        public ChangesetsView()
         {
             this.InitializeComponent();
         }
 
-        public ChangesetsFullSection ParentSection
+        public ChangesetsPage ParentSection
         {
             get
             {
-                return (ChangesetsFullSection)GetValue(ParentSectionProperty);
+                return (ChangesetsPage)GetValue(ParentSectionProperty);
             }
 
             set
@@ -103,6 +103,34 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
             if (sb.Length > 50)
             {
                 sb.Remove(50, sb.Length - 50);
+                sb.Append("...");
+            }
+
+            return sb.ToString();
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// NameShortener class.
+    /// </summary>
+    public class NameShortener : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            string comment = (value is string) ? (string)value : string.Empty;
+            StringBuilder sb = new StringBuilder(comment);
+            sb.Replace('\r', ' ');
+            sb.Replace('\n', ' ');
+            sb.Replace('\t', ' ');
+
+            if (sb.Length > 13)
+            {
+                sb.Remove(13, sb.Length - 13);
                 sb.Append("...");
             }
 

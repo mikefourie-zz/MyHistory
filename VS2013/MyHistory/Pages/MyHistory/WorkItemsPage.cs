@@ -1,4 +1,4 @@
-﻿// <copyright file="WorkItemsFullSection.cs" company="Microsoft Corporation">Copyright Microsoft Corporation. All Rights Reserved. This code released under the terms of the Microsoft Public License (MS-PL, http://opensource.org/licenses/ms-pl.html.) This is sample code only, do not use in production environments.</copyright>
+﻿// <copyright file="WorkItemsPage.cs" company="Microsoft Corporation">Copyright Microsoft Corporation. All Rights Reserved. This code released under the terms of the Microsoft Public License (MS-PL, http://opensource.org/licenses/ms-pl.html.) This is sample code only, do not use in production environments.</copyright>
 namespace Microsoft.ALMRangers.Samples.MyHistory
 {
     using System;
@@ -10,19 +10,21 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
     using Microsoft.TeamFoundation.WorkItemTracking.Client;
     using Microsoft.VisualStudio.TeamFoundation.WorkItemTracking;
 
-    [TeamExplorerSection(WorkItemsFullSection.SectionId, WorkItemsPage.PageId, 10)]
-    public class WorkItemsFullSection : TeamExplorerBaseSection
+    /// <summary>
+    /// We are extending Team Explorer by adding a new page and therefore use the TeamExplorerPage attribute and pass in our unique ID
+    /// </summary>
+    [TeamExplorerPage(WorkItemsPage.PageId)]
+    public class WorkItemsPage : TeamExplorerBasePage
     {
-        public const string SectionId = "C004BFBF-0D8D-4C7C-B4C7-AC37A5852A69";
+        // All Pages must have a unique ID. Use the Tools - Create GUID menu in Visual Studio to create your own GUID
+        public const string PageId = "E47AACBD-4AC1-4A9B-9F96-9D2256D5B1E4";
         private ObservableCollection<WorkItem> workItems = new ObservableCollection<WorkItem>();
 
-        public WorkItemsFullSection()
+        public WorkItemsPage()
         {
-            this.Title = "Work Items";
-            this.IsVisible = true;
-            this.IsExpanded = true;
-            this.IsBusy = false;
-            this.SectionContent = new WorkItemsFullSectionView();
+            // Set the page title
+            this.Title = "My History - WorkItems";
+            this.PageContent = new WorkItemsPageView();
             this.View.ParentSection = this;
         }
 
@@ -40,9 +42,9 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
             }
         }
 
-        protected WorkItemsFullSectionView View
+        protected WorkItemsPageView View
         {
-            get { return this.SectionContent as WorkItemsFullSectionView; }
+            get { return this.PageContent as WorkItemsPageView; }
         }
 
         public void ViewWorkItemDetails(int workItemId)
@@ -64,7 +66,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
             }
         }
 
-        public async override void Initialize(object sender, SectionInitializeEventArgs e)
+        public async override void Initialize(object sender, PageInitializeEventArgs e)
         {
             base.Initialize(sender, e);
 
@@ -95,7 +97,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
         /// <summary>
         /// Save contextual information about the current section state.
         /// </summary>
-        public override void SaveContext(object sender, SectionSaveContextEventArgs e)
+        public override void SaveContext(object sender, PageSaveContextEventArgs e)
         {
             base.SaveContext(sender, e);
 

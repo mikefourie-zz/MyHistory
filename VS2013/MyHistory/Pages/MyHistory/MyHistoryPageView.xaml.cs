@@ -1,39 +1,35 @@
-﻿// <copyright file="SummarySectionView.xaml.cs" company="Microsoft Corporation">Copyright Microsoft Corporation. All Rights Reserved. This code released under the terms of the Microsoft Public License (MS-PL, http://opensource.org/licenses/ms-pl.html.) This is sample code only, do not use in production environments.</copyright>
+﻿// <copyright file="MyHistoryPageView.xaml.cs" company="Microsoft Corporation">Copyright Microsoft Corporation. All Rights Reserved. This code released under the terms of the Microsoft Public License (MS-PL, http://opensource.org/licenses/ms-pl.html.) This is sample code only, do not use in production environments.</copyright>
 namespace Microsoft.ALMRangers.Samples.MyHistory
 {
     using System;
+    using System.Collections.Generic;
     using System.Windows;
     using System.Windows.Input;
-    using Microsoft.TeamFoundation.Client;
+    using EnvDTE80;
     using Microsoft.TeamFoundation.Controls;
-    using Microsoft.TeamFoundation.Framework.Client;
-    using Microsoft.TeamFoundation.Framework.Common;
     using Microsoft.TeamFoundation.VersionControl.Client;
     using Microsoft.TeamFoundation.WorkItemTracking.Client;
+    using Microsoft.VisualStudio.Shell.Interop;
+    using Microsoft.VisualStudio.TeamFoundation.VersionControl;
 
     /// <summary>
     /// Changesets Section View
     /// </summary>
-    public partial class SummarySectionView
+    public partial class MyHistoryPageView
     {
-        public static readonly DependencyProperty ParentSectionProperty = DependencyProperty.Register("ParentSection", typeof(SummarySection), typeof(SummarySectionView));
+        public static readonly DependencyProperty ParentSectionProperty = DependencyProperty.Register("ParentSection", typeof(MyHistoryPage), typeof(MyHistoryPageView));
+        public List<string> NamesList = new List<string>();
 
-        public SummarySectionView()
+        public MyHistoryPageView()
         {
             this.InitializeComponent();
         }
 
-        public SummarySection ParentSection
+        public MyHistoryPage ParentSection
         {
-            get
-            {
-                return (SummarySection)GetValue(ParentSectionProperty);
-            }
+            get { return (MyHistoryPage)GetValue(ParentSectionProperty); }
 
-            set
-            {
-                SetValue(ParentSectionProperty, value);
-            }
+            set { SetValue(ParentSectionProperty, value); }
         }
 
         public int SelectedIndex
@@ -45,53 +41,49 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
 
             set
             {
-                changesetList.SelectedIndex = value; 
+                changesetList.SelectedIndex = value;
                 changesetList.ScrollIntoView(changesetList.SelectedItem);
             }
         }
 
-        private void TextBoxSearch_KeyUp(object sender, KeyEventArgs e)
+        public static VersionControlExt GetVersionControlExt(IServiceProvider serviceProvider)
         {
-            if (e.Key == Key.Enter)
+            if (serviceProvider != null)
             {
-                this.PerformSearch();
+                DTE2 dte = serviceProvider.GetService(typeof(SDTE)) as DTE2;
+                if (dte != null)
+                {
+                    return dte.GetObject("Microsoft.VisualStudio.TeamFoundation.VersionControl.VersionControlExt") as VersionControlExt;
+                }
             }
+
+            return null;
         }
 
-        private void PerformSearch()
+        private void ColleagueLink_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(this.TextBoxSearch.Text))
+            try
             {
-                ITeamFoundationContext context = this.ParentSection.GetContext();
-                IIdentityManagementService ims = context.TeamProjectCollection.GetService<IIdentityManagementService>();
-
-                // First try search by AccountName 
-                TeamFoundationIdentity userIdentity = ims.ReadIdentity(IdentitySearchFactor.AccountName, this.TextBoxSearch.Text, MembershipQuery.None, ReadIdentityOptions.ExtendedProperties);
-                if (userIdentity == null)
+                ITeamExplorer teamExplorer = this.ParentSection.GetService<ITeamExplorer>();
+                if (teamExplorer != null)
                 {
-                    // Next we try search by DisplayName
-                    userIdentity = ims.ReadIdentity(IdentitySearchFactor.DisplayName, this.TextBoxSearch.Text, MembershipQuery.None, ReadIdentityOptions.ExtendedProperties);
-                    if (userIdentity == null)
-                    {
-                        return;
-                    }
+                    teamExplorer.NavigateToPage(new Guid(ColleagueHistoryPage.PageId), null);
                 }
-
-                this.ParentSection.UserAccountName = this.TextBoxSearch.Text;
-                this.ParentSection.UserDisplayName = userIdentity.DisplayName;
             }
-            else
+            catch (Exception ex)
             {
-                this.ParentSection.UserAccountName = "@Me";
-                this.ParentSection.UserDisplayName = string.Empty;
+                this.ParentSection.ShowNotification(ex.Message, NotificationType.Error);
             }
-
-            this.ParentSection.Refresh();
         }
 
         private void HistoryLink_Click(object sender, RoutedEventArgs e)
         {
             this.ParentSection.ViewHistory();
+        }
+
+        private void OptionsLink_Click(object sender, RoutedEventArgs e)
+        {
+            this.ParentSection.ShowNotification("Patience... Options in development ;-)", NotificationType.Information);
         }
 
         private void WorkItemLink_Click(object sender, RoutedEventArgs e)

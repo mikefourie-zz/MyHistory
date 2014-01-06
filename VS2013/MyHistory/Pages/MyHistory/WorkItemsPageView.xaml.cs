@@ -1,4 +1,4 @@
-﻿// <copyright file="WorkItemsFullSectionView.xaml.cs" company="Microsoft Corporation">Copyright Microsoft Corporation. All Rights Reserved. This code released under the terms of the Microsoft Public License (MS-PL, http://opensource.org/licenses/ms-pl.html.) This is sample code only, do not use in production environments.</copyright>
+﻿// <copyright file="WorkItemsPageView.xaml.cs" company="Microsoft Corporation">Copyright Microsoft Corporation. All Rights Reserved. This code released under the terms of the Microsoft Public License (MS-PL, http://opensource.org/licenses/ms-pl.html.) This is sample code only, do not use in production environments.</copyright>
 namespace Microsoft.ALMRangers.Samples.MyHistory
 {
     using System.Windows;
@@ -8,11 +8,11 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
     /// <summary>
     /// WorkItemsSectionView
     /// </summary>
-    public partial class WorkItemsFullSectionView
+    public partial class WorkItemsPageView
     {
-        public static readonly DependencyProperty ParentSectionProperty = DependencyProperty.Register("ParentSection", typeof(WorkItemsFullSection), typeof(WorkItemsFullSectionView));
+        public static readonly DependencyProperty ParentSectionProperty = DependencyProperty.Register("ParentSection", typeof(WorkItemsPage), typeof(WorkItemsPageView));
 
-        public WorkItemsFullSectionView()
+        public WorkItemsPageView()
         {
             this.InitializeComponent();
         }
@@ -31,11 +31,11 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
             }
         }
 
-        public WorkItemsFullSection ParentSection
+        public WorkItemsPage ParentSection
         {
             get
             {
-                return (WorkItemsFullSection)GetValue(ParentSectionProperty);
+                return (WorkItemsPage)GetValue(ParentSectionProperty);
             }
 
             set

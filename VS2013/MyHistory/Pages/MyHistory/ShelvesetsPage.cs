@@ -1,4 +1,4 @@
-﻿// <copyright file="ShelvesetsFullSection.cs" company="Microsoft Corporation">Copyright Microsoft Corporation. All Rights Reserved. This code released under the terms of the Microsoft Public License (MS-PL, http://opensource.org/licenses/ms-pl.html.) This is sample code only, do not use in production environments.</copyright>
+﻿// <copyright file="ShelvesetsPage.cs" company="Microsoft Corporation">Copyright Microsoft Corporation. All Rights Reserved. This code released under the terms of the Microsoft Public License (MS-PL, http://opensource.org/licenses/ms-pl.html.) This is sample code only, do not use in production environments.</copyright>
 namespace Microsoft.ALMRangers.Samples.MyHistory
 {
     using System;
@@ -12,19 +12,21 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
     using Microsoft.VisualStudio.Shell.Interop;
     using Microsoft.VisualStudio.TeamFoundation.VersionControl;
 
-    [TeamExplorerSection(ShelvesetsFullSection.SectionId, ShelvesetsPage.PageId, 10)]
-    public class ShelvesetsFullSection : TeamExplorerBaseSection
+    /// <summary>
+    /// We are extending Team Explorer by adding a new page and therefore use the TeamExplorerPage attribute and pass in our unique ID
+    /// </summary>
+    [TeamExplorerPage(ShelvesetsPage.PageId)]
+    public class ShelvesetsPage : TeamExplorerBasePage
     {
-        public const string SectionId = "7E8B1F70-321D-4327-A744-7C14AE73B59F";
+        // All Pages must have a unique ID. Use the Tools - Create GUID menu in Visual Studio to create your own GUID
+        public const string PageId = "C5B94742-E81A-4154-BB02-9B1E2E5AAC74";
         private ObservableCollection<Shelveset> shelvesets = new ObservableCollection<Shelveset>();
-
-        public ShelvesetsFullSection()
+        
+        public ShelvesetsPage()
         {
-            this.Title = "Shelvesets";
-            this.IsVisible = true;
-            this.IsExpanded = true;
-            this.IsBusy = false;
-            this.SectionContent = new ShelvesetsFullSectionView();
+            // Set the page title
+            this.Title = "My History - Shelvesets";
+            this.PageContent = new ShelvesetsView();
             this.View.ParentSection = this;
         }
 
@@ -42,9 +44,9 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
             }
         }
 
-        protected ShelvesetsFullSectionView View
+        protected ShelvesetsView View
         {
-            get { return this.SectionContent as ShelvesetsFullSectionView; }
+            get { return this.PageContent as ShelvesetsView; }
         }
 
         public static VersionControlExt GetVersionControlExt(IServiceProvider serviceProvider)
@@ -70,7 +72,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
             }
         }
 
-        public async override void Initialize(object sender, SectionInitializeEventArgs e)
+        public async override void Initialize(object sender, PageInitializeEventArgs e)
         {
             base.Initialize(sender, e);
 
@@ -101,7 +103,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
         /// <summary>
         /// Save contextual information about the current section state.
         /// </summary>
-        public override void SaveContext(object sender, SectionSaveContextEventArgs e)
+        public override void SaveContext(object sender, PageSaveContextEventArgs e)
         {
             base.SaveContext(sender, e);
 

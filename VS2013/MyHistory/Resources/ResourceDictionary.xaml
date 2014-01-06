@@ -86,4 +86,5 @@
     
     <!-- Converters -->
     <local:ChangesetCommentConverter x:Key="ChangesetCommentConverter"/>
+    <local:NameShortener x:Key="NameShortener"/>
 </ResourceDictionary>
