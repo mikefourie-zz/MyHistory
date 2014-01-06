@@ -1,4 +1,4 @@
-﻿// <copyright file="SummarySection.cs" company="Microsoft Corporation">Copyright Microsoft Corporation. All Rights Reserved. This code released under the terms of the Microsoft Public License (MS-PL, http://opensource.org/licenses/ms-pl.html.) This is sample code only, do not use in production environments.</copyright>
+﻿// <copyright file="ColleagueHistoryPage.cs" company="Microsoft Corporation">Copyright Microsoft Corporation. All Rights Reserved. This code released under the terms of the Microsoft Public License (MS-PL, http://opensource.org/licenses/ms-pl.html.) This is sample code only, do not use in production environments.</copyright>
 namespace Microsoft.ALMRangers.Samples.MyHistory
 {
     using System;
@@ -14,27 +14,29 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
     using Microsoft.VisualStudio.Shell.Interop;
     using Microsoft.VisualStudio.TeamFoundation.VersionControl;
     using Microsoft.VisualStudio.TeamFoundation.WorkItemTracking;
-    
-    [TeamExplorerSection(SummarySection.SectionId, MyHistoryPage.PageId, 10)]
-    public class SummarySection : TeamExplorerBaseSection
+
+    /// <summary>
+    /// We are extending Team Explorer by adding a new page and therefore use the TeamExplorerPage attribute and pass in our unique ID
+    /// </summary>
+    [TeamExplorerPage(ColleagueHistoryPage.PageId)]
+    public class ColleagueHistoryPage : TeamExplorerBasePage
     {
-        public const string SectionId = "4CD17DDA-40C0-4B5D-896F-405D2146FA87";
-        public string UserAccountName = "@Me";
+        // All Pages must have a unique ID. Use the Tools - Create GUID menu in Visual Studio to create your own GUID
+        public const string PageId = "501B005D-B7EA-4FD4-BBEC-432CE5F7FCCD";
+        public string UserAccountName = string.Empty;
         public string UserDisplayName = string.Empty;
         private ObservableCollection<Changeset> changesets = new ObservableCollection<Changeset>();
         private ObservableCollection<WorkItem> workItems = new ObservableCollection<WorkItem>();
         private ObservableCollection<Shelveset> shelvesets = new ObservableCollection<Shelveset>();
 
-        public SummarySection()
+        public ColleagueHistoryPage()
         {
-           // this.Title = "MyHistory Summary";
-            this.IsVisible = true;
-          //  this.IsExpanded = true;
-            this.IsBusy = false;
-            this.SectionContent = new SummarySectionView();
+            // Set the page title
+            this.Title = "Colleague History";
+            this.PageContent = new ColleagueHistoryPageView();
             this.View.ParentSection = this;
         }
-        
+
         public ObservableCollection<Changeset> Changesets
         {
             get
@@ -77,9 +79,9 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
             }
         }
 
-        protected SummarySectionView View
+        protected ColleagueHistoryPageView View
         {
-            get { return this.SectionContent as SummarySectionView; }
+            get { return this.PageContent as ColleagueHistoryPageView; }
         }
 
         public static VersionControlExt GetVersionControlExt(IServiceProvider serviceProvider)
@@ -109,7 +111,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
                 teamExplorer.NavigateToPage(new Guid(TeamExplorerPageIds.ChangesetDetails), changesetId);
             }
         }
-        
+
         public void ViewShelvesetDetails(Shelveset shelveset)
         {
             ITeamExplorer teamExplorer = this.GetService<ITeamExplorer>();
@@ -138,7 +140,33 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
             }
         }
 
-        public async override void Initialize(object sender, SectionInitializeEventArgs e)
+        public override async void Refresh()
+        {
+            base.Refresh();
+            await this.RefreshAsyncChangesets();
+            await this.RefreshAsyncShelveSets();
+            await this.RefreshAsyncWorkitems();
+        }
+
+        public void ViewHistory()
+        {
+            ITeamFoundationContext context = this.CurrentContext;
+            if (context != null && context.HasCollection && context.HasTeamProject)
+            {
+                VersionControlServer vcs = context.TeamProjectCollection.GetService<VersionControlServer>();
+                if (vcs != null)
+                {
+                    string path = "$/" + context.TeamProjectName;
+                    VersionControlExt vc = GetVersionControlExt(this.ServiceProvider);
+                    if (vc != null)
+                    {
+                        vc.History.Show(path, VersionSpec.Latest, 0, RecursionType.Full, this.UserAccountName, null, null, 250, true);
+                    }
+                }
+            }
+        }
+
+        public async override void Initialize(object sender, PageInitializeEventArgs e)
         {
             base.Initialize(sender, e);
 
@@ -161,40 +189,10 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
             }
         }
 
-        public override async void Refresh()
-        {
-            base.Refresh();
-            await this.RefreshAsyncChangesets();
-            await this.RefreshAsyncShelveSets();
-            await this.RefreshAsyncWorkitems();
-        }
-
-        public void ViewHistory()
-        {
-            ITeamFoundationContext context = this.CurrentContext;
-            if (context != null && context.HasCollection && context.HasTeamProject)
-            {
-                VersionControlServer vcs = context.TeamProjectCollection.GetService<VersionControlServer>();
-                if (vcs != null)
-                {
-                    // Ask the derived section for the history parameters
-                    string user;
-                    int maxCount;
-                    this.GetHistoryParameters(vcs, out user, out maxCount);
-                    string path = "$/" + context.TeamProjectName;
-                    VersionControlExt vc = GetVersionControlExt(this.ServiceProvider);
-                    if (vc != null)
-                    {
-                        vc.History.Show(path, VersionSpec.Latest, 0, RecursionType.Full, user, null, null, int.MaxValue, true);
-                    }
-                }
-            }
-        }
-
         /// <summary>
         /// Save contextual information about the current section state.
         /// </summary>
-        public override void SaveContext(object sender, SectionSaveContextEventArgs e)
+        public override void SaveContext(object sender, PageSaveContextEventArgs e)
         {
             base.SaveContext(sender, e);
 
@@ -219,23 +217,6 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
             }
         }
 
-        /// <summary>
-        /// Get the parameters for the history query.
-        /// </summary>
-        private void GetHistoryParameters(VersionControlServer vcs, out string user, out int maxCount)
-        {
-            maxCount = 12;
-            user = this.UserAccountName != "@Me" ? this.UserAccountName : vcs.AuthorizedUser;
-        }
-
-        /// <summary>
-        /// Get the parameters for the shelveset query.
-        /// </summary>
-        private void GetShelvesetParameters(VersionControlServer vcs, out string user)
-        {
-            user = this.UserAccountName != "@Me" ? this.UserAccountName : vcs.AuthorizedUser;
-        }
-
         private async Task RefreshAsyncChangesets()
         {
             try
@@ -255,12 +236,8 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
                         VersionControlServer vcs = context.TeamProjectCollection.GetService<VersionControlServer>();
                         if (vcs != null)
                         {
-                            // Ask the derived section for the history parameters
-                            string user;
-                            int maxCount;
-                            this.GetHistoryParameters(vcs, out user, out maxCount);
                             string path = "$/" + context.TeamProjectName;
-                            foreach (Changeset changeset in vcs.QueryHistory(path, VersionSpec.Latest, 0, RecursionType.Full, user, null, null, maxCount, false, true))
+                            foreach (Changeset changeset in vcs.QueryHistory(path, VersionSpec.Latest, 0, RecursionType.Full, this.UserAccountName, null, null, 12, false, true))
                             {
                                 lchangesets.Add(changeset);
                             }
@@ -301,10 +278,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
                         VersionControlServer vcs = context.TeamProjectCollection.GetService<VersionControlServer>();
                         if (vcs != null)
                         {
-                            // Ask the derived section for the history parameters
-                            string user;
-                            GetShelvesetParameters(vcs, out user);
-                            foreach (Shelveset shelveset in vcs.QueryShelvesets(null, user))
+                            foreach (Shelveset shelveset in vcs.QueryShelvesets(null, this.UserAccountName))
                             {
                                 lshelvesests.Add(shelveset);
                             }
@@ -323,8 +297,8 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
                 {
                     lshelvesests2.Add(s);
 
-                    // only bring back the last 15
-                    if (lshelvesests2.Count >= 15)
+                    // only bring back the last 30
+                    if (lshelvesests2.Count >= 30)
                     {
                         break;
                     }
@@ -362,13 +336,17 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
                         WorkItemStore wis = context.TeamProjectCollection.GetService<WorkItemStore>();
                         if (wis != null)
                         {
-                            string user = "@Me";
-                            if (this.UserAccountName != user)
+                            WorkItemCollection wic;
+                            if (!string.IsNullOrWhiteSpace(this.UserAccountName))
                             {
-                                user = "'" + this.UserDisplayName + "'";
+                                string user = "'" + this.UserDisplayName + "'";
+                                wic = wis.Query("SELECT [System.Id], [System.Title], [System.State] FROM WorkItems WHERE [System.WorkItemType] <> ''  AND  [System.State] <> ''  AND  [System.AssignedTo] EVER " + user + " ORDER BY [System.ChangedDate] desc");
                             }
-
-                            WorkItemCollection wic = wis.Query("SELECT [System.Id], [System.Title], [System.State] FROM WorkItems WHERE [System.WorkItemType] <> ''  AND  [System.State] <> ''  AND  [System.AssignedTo] EVER " + user + " ORDER BY [System.ChangedDate] desc");
+                            else
+                            {
+                                wic = wis.Query("SELECT [System.Id], [System.Title], [System.State] FROM WorkItems WHERE [System.WorkItemType] <> ''  AND  [System.State] <> '' AND [System.TeamProject] = '" + context.TeamProjectName + "'ORDER BY [System.ChangedDate] desc");
+                            }
+                            
                             int i = 0;
                             foreach (WorkItem wi in wic)
                             {

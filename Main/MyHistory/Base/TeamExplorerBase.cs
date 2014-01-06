@@ -3,7 +3,6 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
 {
     using System;
     using System.ComponentModel;
-    using System.Diagnostics;
     using Microsoft.TeamFoundation.Client;
     using Microsoft.TeamFoundation.Controls;
 
@@ -69,7 +68,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
             this.UnsubscribeContextChanges();
         }
 
-        protected Guid ShowNotification(string message, NotificationType type)
+        public Guid ShowNotification(string message, NotificationType type)
         {
             ITeamExplorer teamExplorer = this.GetService<ITeamExplorer>();
             if (teamExplorer != null)

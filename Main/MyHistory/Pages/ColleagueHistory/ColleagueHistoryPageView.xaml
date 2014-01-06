@@ -1,43 +1,42 @@
-﻿<UserControl x:Class="Microsoft.ALMRangers.Samples.MyHistory.SummarySectionView"
+﻿<UserControl x:Class="Microsoft.ALMRangers.Samples.MyHistory.ColleagueHistoryPageView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mvvm="clr-namespace:Microsoft.TeamFoundation.MVVM;assembly=Microsoft.TeamFoundation.Controls"
-             xmlns:tfscontrols="clr-namespace:Microsoft.TeamFoundation.Controls.WPF;assembly=Microsoft.TeamFoundation.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <UserControl.Resources>
         <ResourceDictionary Source="/Microsoft.ALMRangers.Samples.MyHistory;component/Resources/ResourceDictionary.xaml" />
     </UserControl.Resources>
+    
     <Grid Margin="6,6,6,6">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Search -->
-        <WrapPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,6" HorizontalAlignment="Stretch" Background="Red">
-            <!--<tfscontrols:LabeledTextBox AcceptsReturn="false" Name="TextBoxSearch" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type WrapPanel}, Mode=FindAncestor}}" KeyUp="TextBoxSearch_KeyUp" HorizontalAlignment="Stretch" HintText="Enter User Account or Display name to search">
-                <tfscontrols:LabeledTextBox.ToolTip>
-                    <TextBlock>Search by User Account or Display name<LineBreak />Press [ENTER] to search.</TextBlock>
-                </tfscontrols:LabeledTextBox.ToolTip>
-            </tfscontrols:LabeledTextBox>-->
-            <ComboBox x:Name="NamesCombo" HorizontalAlignment="Left" VerticalAlignment="Top" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type WrapPanel}, Mode=FindAncestor}}" KeyUp="NamesCombo_KeyUp" IsEditable="True"/>
+        <WrapPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,6" HorizontalAlignment="Right">
+            <TextBlock><Hyperlink x:Name="TeamLink" Click="MyLink_Click">My History</Hyperlink></TextBlock>
+<!--            <TextBlock><Hyperlink x:Name="TeamLink" Click="MyLink_Click">My History</Hyperlink> | <Hyperlink x:Name="ReportLink" Click="ReportLink_Click">Reports</Hyperlink></TextBlock> -->
+        </WrapPanel>
 
+        <!-- Search -->
+        <WrapPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,6" HorizontalAlignment="Stretch">
+            <ComboBox x:Name="NamesCombo" HorizontalAlignment="Left" VerticalAlignment="Top" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type WrapPanel}, Mode=FindAncestor}}" KeyUp="NamesCombo_KeyUp" IsEditable="True" SelectionChanged="NamesCombo_SelectionChanged"/>
         </WrapPanel>
 
         <!-- WorkItems -->
-        <WrapPanel Orientation="Vertical" Grid.Row="1" Margin="0,0,0,6">
-            <TextBlock FontWeight="Bold"><Hyperlink x:Name="WorkItemLink" Click="WorkItemLink_Click">Work Items</Hyperlink></TextBlock>
+        <WrapPanel Orientation="Vertical" Grid.Row="2" Margin="0,0,0,6">
+            <TextBlock FontWeight="Bold">Work Items</TextBlock>
             <ListView x:Name="workItemList" ItemsSource="{Binding Path=ParentSection.WorkItems}" BorderThickness="0"
                   SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                   MouseDoubleClick="WorkItemList_MouseDoubleClick" KeyDown="WorkItemList_KeyDown"
-                  mvvm:FrameworkElementBehaviors.IgnoreMouseWheel="True" 
-                  ItemContainerStyle="{StaticResource {x:Type ListViewItem}}">
+                  mvvm:FrameworkElementBehaviors.IgnoreMouseWheel="True">
                 <ListView.View>
                     <GridView>
                         <GridView.ColumnHeaderContainerStyle>
@@ -53,6 +52,14 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
+                        <GridViewColumn Width="100">
+                            <GridViewColumnHeader Content="User"/>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  Text="{Binding Path=ChangedBy, Converter={StaticResource NameShortener}}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                         <GridViewColumn Width="500">
                             <GridViewColumnHeader Content="Title"/>
                             <GridViewColumn.CellTemplate>
@@ -63,12 +70,45 @@
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource {x:Type ListViewItem}}">
+                        <Setter Property="ToolTip">
+                            <Setter.Value>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,6,3" Text="WorkItem ID:" FontWeight="Bold"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Margin="0,0,0,3" Text="{Binding Path=Id}"/>
+
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,0,6,3" Text="ChangedBy:" FontWeight="Bold"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,0,0,3" Text="{Binding Path=ChangedBy}"/>
+
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,0,6,3" Text="Change Date:" FontWeight="Bold"/>
+                                    <TextBlock Grid.Row="3" Grid.Column="1" Margin="0,0,0,3" Text="{Binding Path=ChangedDate}"/>
+
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,0,6,3" Text="Title:" FontWeight="Bold"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="1" Margin="0,0,0,3" Text="{Binding Path=Title}" TextWrapping="Wrap" MaxWidth="500"/>
+                                </Grid>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
             </ListView>
         </WrapPanel>
 
         <!-- Changesets -->
-        <WrapPanel Orientation="Vertical" Grid.Row="2" Margin="0,0,0,6">
-            <TextBlock FontWeight="Bold"><Hyperlink x:Name="historyLink" Click="HistoryLink_Click">Changesets</Hyperlink></TextBlock>
+        <WrapPanel Orientation="Vertical" Grid.Row="3" Margin="0,0,0,6">
+            <TextBlock FontWeight="Bold">Changesets</TextBlock>
             <ListView x:Name="changesetList" ItemsSource="{Binding Path=ParentSection.Changesets}" BorderThickness="0"
                   SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                   mvvm:FrameworkElementBehaviors.IgnoreMouseWheel="True"  
@@ -85,6 +125,14 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Path=ChangesetId}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="100">
+                            <GridViewColumnHeader Content="User"/>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=CommitterDisplayName, Converter={StaticResource NameShortener}}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -108,6 +156,7 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -117,11 +166,14 @@
                                     <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,6,3" Text="Changeset ID:" FontWeight="Bold"/>
                                     <TextBlock Grid.Row="0" Grid.Column="1" Margin="0,0,0,3" Text="{Binding Path=ChangesetId}"/>
 
-                                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,0,6,3" Text="Date:" FontWeight="Bold"/>
-                                    <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,0,0,3" Text="{Binding Path=CreationDate}"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,0,6,3" Text="User:" FontWeight="Bold"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,0,0,3" Text="{Binding Path=CommitterDisplayName}"/>
+                                    
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,0,6,3" Text="Date:" FontWeight="Bold"/>
+                                    <TextBlock Grid.Row="3" Grid.Column="1" Margin="0,0,0,3" Text="{Binding Path=CreationDate}"/>
 
-                                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,0,6,3" Text="Comment:" FontWeight="Bold"/>
-                                    <TextBlock Grid.Row="3" Grid.Column="1" Margin="0,0,0,3" Text="{Binding Path=Comment}" TextWrapping="Wrap" MaxWidth="500"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,0,6,3" Text="Comment:" FontWeight="Bold"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="1" Margin="0,0,0,3" Text="{Binding Path=Comment}" TextWrapping="Wrap" MaxWidth="500"/>
                                 </Grid>
                             </Setter.Value>
                         </Setter>
@@ -131,8 +183,8 @@
         </WrapPanel>
 
         <!-- Shelvesets -->
-        <WrapPanel Orientation="Vertical" Grid.Row="3" Margin="0,0,0,6">
-            <TextBlock FontWeight="Bold"><Hyperlink x:Name="ShelvesetsLink" Click="ShelvesetsLink_Click">Shelvesets</Hyperlink></TextBlock>
+        <WrapPanel Orientation="Vertical" Grid.Row="4" Margin="0,0,0,6">
+            <TextBlock FontWeight="Bold">Shelvesets</TextBlock>
             <ListView x:Name="ListViewShelvesets" ItemsSource="{Binding Path=ParentSection.Shelvesets}" BorderThickness="0"
                   SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
                   MouseDoubleClick="ListViewShelvesets_MouseDoubleClick"  
@@ -145,6 +197,14 @@
                                 <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
                             </Style>
                         </GridView.ColumnHeaderContainerStyle>
+                        <GridViewColumn Width="100">
+                            <GridViewColumnHeader Content="User"/>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=OwnerDisplayName, Converter={StaticResource NameShortener}}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                         <GridViewColumn Width="500">
                             <GridViewColumnHeader Content="Shelveset"/>
                             <GridViewColumn.CellTemplate>
@@ -172,8 +232,12 @@
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,6,3" Text="Creation Date:" FontWeight="Bold"/>
                                     <TextBlock Grid.Row="0" Grid.Column="1" Margin="0,0,0,3" Text="{Binding Path=CreationDate}"/>
-                                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,0,6,3" Text="Comment:" FontWeight="Bold"/>
-                                    <TextBlock Grid.Row="1" Grid.Column="1" Margin="0,0,0,3" Text="{Binding Path=Comment}"/>
+
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,0,6,3" Text="Owner:" FontWeight="Bold"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Margin="0,0,0,3" Text="{Binding Path=OwnerDisplayName}"/>
+
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,0,6,3" Text="Comment:" FontWeight="Bold"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,0,0,3" Text="{Binding Path=Comment}"/>
                                 </Grid>
                             </Setter.Value>
                         </Setter>

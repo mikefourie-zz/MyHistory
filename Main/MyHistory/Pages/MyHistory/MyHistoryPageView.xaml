@@ -1,16 +1,16 @@
-﻿<UserControl x:Class="Microsoft.ALMRangers.Samples.MyHistory.SummarySectionView"
+﻿<UserControl x:Class="Microsoft.ALMRangers.Samples.MyHistory.MyHistoryPageView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mvvm="clr-namespace:Microsoft.TeamFoundation.MVVM;assembly=Microsoft.TeamFoundation.Controls"
-             xmlns:tfscontrols="clr-namespace:Microsoft.TeamFoundation.Controls.WPF;assembly=Microsoft.TeamFoundation.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <UserControl.Resources>
         <ResourceDictionary Source="/Microsoft.ALMRangers.Samples.MyHistory;component/Resources/ResourceDictionary.xaml" />
     </UserControl.Resources>
+    
     <Grid Margin="6,6,6,6">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -19,15 +19,9 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Search -->
-        <WrapPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,6" HorizontalAlignment="Stretch" Background="Red">
-            <!--<tfscontrols:LabeledTextBox AcceptsReturn="false" Name="TextBoxSearch" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type WrapPanel}, Mode=FindAncestor}}" KeyUp="TextBoxSearch_KeyUp" HorizontalAlignment="Stretch" HintText="Enter User Account or Display name to search">
-                <tfscontrols:LabeledTextBox.ToolTip>
-                    <TextBlock>Search by User Account or Display name<LineBreak />Press [ENTER] to search.</TextBlock>
-                </tfscontrols:LabeledTextBox.ToolTip>
-            </tfscontrols:LabeledTextBox>-->
-            <ComboBox x:Name="NamesCombo" HorizontalAlignment="Left" VerticalAlignment="Top" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type WrapPanel}, Mode=FindAncestor}}" KeyUp="NamesCombo_KeyUp" IsEditable="True"/>
-
+        <WrapPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,6" HorizontalAlignment="Right">
+            <TextBlock><Hyperlink x:Name="ColleagueLink" Click="ColleagueLink_Click">Colleague History</Hyperlink></TextBlock>
+<!--        TODO    <TextBlock><Hyperlink x:Name="ColleagueLink" Click="ColleagueLink_Click">Colleague History</Hyperlink> | <Hyperlink x:Name="OptionsLink" Click="OptionsLink_Click">Options</Hyperlink></TextBlock> -->
         </WrapPanel>
 
         <!-- WorkItems -->
@@ -68,7 +62,7 @@
 
         <!-- Changesets -->
         <WrapPanel Orientation="Vertical" Grid.Row="2" Margin="0,0,0,6">
-            <TextBlock FontWeight="Bold"><Hyperlink x:Name="historyLink" Click="HistoryLink_Click">Changesets</Hyperlink></TextBlock>
+            <TextBlock FontWeight="Bold"><Hyperlink x:Name="ChangesetsLink" Click="HistoryLink_Click">Changesets</Hyperlink></TextBlock>
             <ListView x:Name="changesetList" ItemsSource="{Binding Path=ParentSection.Changesets}" BorderThickness="0"
                   SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                   mvvm:FrameworkElementBehaviors.IgnoreMouseWheel="True"  

@@ -1,4 +1,4 @@
-﻿// <copyright file="SummarySection.cs" company="Microsoft Corporation">Copyright Microsoft Corporation. All Rights Reserved. This code released under the terms of the Microsoft Public License (MS-PL, http://opensource.org/licenses/ms-pl.html.) This is sample code only, do not use in production environments.</copyright>
+﻿// <copyright file="MyHistoryPage.cs" company="Microsoft Corporation">Copyright Microsoft Corporation. All Rights Reserved. This code released under the terms of the Microsoft Public License (MS-PL, http://opensource.org/licenses/ms-pl.html.) This is sample code only, do not use in production environments.</copyright>
 namespace Microsoft.ALMRangers.Samples.MyHistory
 {
     using System;
@@ -14,27 +14,27 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
     using Microsoft.VisualStudio.Shell.Interop;
     using Microsoft.VisualStudio.TeamFoundation.VersionControl;
     using Microsoft.VisualStudio.TeamFoundation.WorkItemTracking;
-    
-    [TeamExplorerSection(SummarySection.SectionId, MyHistoryPage.PageId, 10)]
-    public class SummarySection : TeamExplorerBaseSection
+
+    /// <summary>
+    /// We are extending Team Explorer by adding a new page and therefore use the TeamExplorerPage attribute and pass in our unique ID
+    /// </summary>
+    [TeamExplorerPage(MyHistoryPage.PageId)]
+    public class MyHistoryPage : TeamExplorerBasePage
     {
-        public const string SectionId = "4CD17DDA-40C0-4B5D-896F-405D2146FA87";
-        public string UserAccountName = "@Me";
-        public string UserDisplayName = string.Empty;
+        // All Pages must have a unique ID. Use the Tools - Create GUID menu in Visual Studio to create your own GUID
+        public const string PageId = "BAC5373E-1BE5-4A10-97F5-AC278CA77EDF";
         private ObservableCollection<Changeset> changesets = new ObservableCollection<Changeset>();
         private ObservableCollection<WorkItem> workItems = new ObservableCollection<WorkItem>();
         private ObservableCollection<Shelveset> shelvesets = new ObservableCollection<Shelveset>();
 
-        public SummarySection()
+        public MyHistoryPage()
         {
-           // this.Title = "MyHistory Summary";
-            this.IsVisible = true;
-          //  this.IsExpanded = true;
-            this.IsBusy = false;
-            this.SectionContent = new SummarySectionView();
+            // Set the page title
+            this.Title = "My History";
+            this.PageContent = new MyHistoryPageView();
             this.View.ParentSection = this;
         }
-        
+
         public ObservableCollection<Changeset> Changesets
         {
             get
@@ -77,9 +77,9 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
             }
         }
 
-        protected SummarySectionView View
+        protected MyHistoryPageView View
         {
-            get { return this.SectionContent as SummarySectionView; }
+            get { return this.PageContent as MyHistoryPageView; }
         }
 
         public static VersionControlExt GetVersionControlExt(IServiceProvider serviceProvider)
@@ -101,6 +101,11 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
             return this.CurrentContext;
         }
 
+        public IServiceProvider GetServiceProvider()
+        {
+            return this.ServiceProvider;
+        }
+
         public void ViewChangesetDetails(int changesetId)
         {
             ITeamExplorer teamExplorer = this.GetService<ITeamExplorer>();
@@ -109,7 +114,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
                 teamExplorer.NavigateToPage(new Guid(TeamExplorerPageIds.ChangesetDetails), changesetId);
             }
         }
-        
+
         public void ViewShelvesetDetails(Shelveset shelveset)
         {
             ITeamExplorer teamExplorer = this.GetService<ITeamExplorer>();
@@ -135,29 +140,6 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
             catch (Exception ex)
             {
                 this.ShowNotification(ex.Message, NotificationType.Error);
-            }
-        }
-
-        public async override void Initialize(object sender, SectionInitializeEventArgs e)
-        {
-            base.Initialize(sender, e);
-
-            // If the user navigated back to this page, there could be saved context information that is passed in
-            var sectionContext = e.Context as ChangesSectionContext;
-            if (sectionContext != null)
-            {
-                // Restore the context instead of refreshing
-                ChangesSectionContext context = sectionContext;
-                this.Changesets = context.Changesets;
-                this.WorkItems = context.WorkItems;
-                this.Shelvesets = context.Shelvesets;
-            }
-            else
-            {
-                // Kick off the refresh
-                await this.RefreshAsyncChangesets();
-                await this.RefreshAsyncShelveSets();
-                await this.RefreshAsyncWorkitems();
             }
         }
 
@@ -191,10 +173,33 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
             }
         }
 
+        public async override void Initialize(object sender, PageInitializeEventArgs e)
+        {
+            base.Initialize(sender, e);
+
+            // If the user navigated back to this page, there could be saved context information that is passed in
+            var sectionContext = e.Context as ChangesSectionContext;
+            if (sectionContext != null)
+            {
+                // Restore the context instead of refreshing
+                ChangesSectionContext context = sectionContext;
+                this.Changesets = context.Changesets;
+                this.WorkItems = context.WorkItems;
+                this.Shelvesets = context.Shelvesets;
+            }
+            else
+            {
+                // Kick off the refresh
+                await this.RefreshAsyncChangesets();
+                await this.RefreshAsyncShelveSets();
+                await this.RefreshAsyncWorkitems();
+            }
+        }
+
         /// <summary>
         /// Save contextual information about the current section state.
         /// </summary>
-        public override void SaveContext(object sender, SectionSaveContextEventArgs e)
+        public override void SaveContext(object sender, PageSaveContextEventArgs e)
         {
             base.SaveContext(sender, e);
 
@@ -225,7 +230,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
         private void GetHistoryParameters(VersionControlServer vcs, out string user, out int maxCount)
         {
             maxCount = 12;
-            user = this.UserAccountName != "@Me" ? this.UserAccountName : vcs.AuthorizedUser;
+            user = vcs.AuthorizedUser;
         }
 
         /// <summary>
@@ -233,7 +238,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
         /// </summary>
         private void GetShelvesetParameters(VersionControlServer vcs, out string user)
         {
-            user = this.UserAccountName != "@Me" ? this.UserAccountName : vcs.AuthorizedUser;
+            user = vcs.AuthorizedUser;
         }
 
         private async Task RefreshAsyncChangesets()
@@ -362,13 +367,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
                         WorkItemStore wis = context.TeamProjectCollection.GetService<WorkItemStore>();
                         if (wis != null)
                         {
-                            string user = "@Me";
-                            if (this.UserAccountName != user)
-                            {
-                                user = "'" + this.UserDisplayName + "'";
-                            }
-
-                            WorkItemCollection wic = wis.Query("SELECT [System.Id], [System.Title], [System.State] FROM WorkItems WHERE [System.WorkItemType] <> ''  AND  [System.State] <> ''  AND  [System.AssignedTo] EVER " + user + " ORDER BY [System.ChangedDate] desc");
+                            WorkItemCollection wic = wis.Query("SELECT [System.Id], [System.Title], [System.State] FROM WorkItems WHERE [System.WorkItemType] <> ''  AND  [System.State] <> ''  AND  [System.AssignedTo] EVER @Me ORDER BY [System.ChangedDate] desc");
                             int i = 0;
                             foreach (WorkItem wi in wic)
                             {
