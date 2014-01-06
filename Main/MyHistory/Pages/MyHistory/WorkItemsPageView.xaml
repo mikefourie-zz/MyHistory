@@ -72,7 +72,7 @@
                                 <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,6,3" Text="WorkItem ID:" FontWeight="Bold"/>
                                 <TextBlock Grid.Row="0" Grid.Column="1" Margin="0,0,0,3" Text="{Binding Path=Id}"/>
 
-                                <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,0,6,3" Text="ChangedBy:" FontWeight="Bold"/>
+                                <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,0,6,3" Text="Changed By:" FontWeight="Bold"/>
                                 <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,0,0,3" Text="{Binding Path=ChangedBy}"/>
 
                                 <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,0,6,3" Text="Change Date:" FontWeight="Bold"/>
