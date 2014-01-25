@@ -27,7 +27,7 @@
 
         <!-- Search -->
         <WrapPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,6" HorizontalAlignment="Stretch">
-            <ComboBox x:Name="NamesCombo" HorizontalAlignment="Left" VerticalAlignment="Top" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type WrapPanel}, Mode=FindAncestor}}" KeyUp="NamesCombo_KeyUp" IsEditable="True" SelectionChanged="NamesCombo_SelectionChanged"/>
+            <ComboBox x:Name="NamesCombo" HorizontalAlignment="Left" VerticalAlignment="Top" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type WrapPanel}, Mode=FindAncestor}}" KeyUp="NamesCombo_KeyUp" IsEditable="True" DropDownClosed="NamesCombo_DropDownClosed"/>
         </WrapPanel>
 
         <!-- WorkItems -->

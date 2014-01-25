@@ -273,7 +273,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
             }
         }
 
-        private void NamesCombo_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void NamesCombo_DropDownClosed(object sender, EventArgs e)
         {
             this.PerformSearch();
         }
