@@ -3,6 +3,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Media;
@@ -82,12 +83,9 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
                 {
                     // Ask the derived section for the history parameters
                     string path = "$/" + context.TeamProjectName;
-                    foreach (Changeset changeset in vcs.QueryHistory(path, VersionSpec.Latest, 0, RecursionType.Full, string.Empty, null, null, 100, false, true, false))
+                    foreach (Changeset changeset in vcs.QueryHistory(path, VersionSpec.Latest, 0, RecursionType.Full, string.Empty, null, null, 250, false, true, false).Cast<Changeset>().Where(changeset => !names.Contains(changeset.CommitterDisplayName)))
                     {
-                        if (!names.Contains(changeset.CommitterDisplayName))
-                        {
-                            names.Add(changeset.CommitterDisplayName);
-                        }
+                        names.Add(changeset.CommitterDisplayName);
                     }
                 }
 
@@ -95,7 +93,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
                 WorkItemStore wis = context.TeamProjectCollection.GetService<WorkItemStore>();
                 if (wis != null)
                 {
-                    WorkItemCollection wic = wis.Query("SELECT [System.Id], [System.Title], [System.State] FROM WorkItems WHERE [System.WorkItemType] <> ''  AND  [System.State] <> '' AND [System.TeamProject] = '" + context.TeamProjectName + "' ORDER BY [System.ChangedDate] desc");
+                    WorkItemCollection wic = wis.Query("SELECT [System.Id] FROM WorkItems WHERE [System.WorkItemType] <> ''  AND  [System.State] <> '' AND [System.TeamProject] = '" + context.TeamProjectName + "' ORDER BY [System.ChangedDate] desc");
                     
                     int i = 0;
                     foreach (WorkItem wi in wic)
@@ -106,7 +104,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
                         }
 
                         i++;
-                        if (i >= 100)
+                        if (i >= 250)
                         {
                             break;
                         }
