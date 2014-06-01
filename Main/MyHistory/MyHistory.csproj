@@ -73,6 +73,7 @@
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRuleSet>Properties\ALMRangersRuleSet.ruleset</CodeAnalysisRuleSet>
+    <DeployExtension>False</DeployExtension>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'VS2013_Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -92,6 +93,7 @@
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRuleSet>Properties\ALMRangersRuleSet.ruleset</CodeAnalysisRuleSet>
+    <DeployExtension>False</DeployExtension>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Base\TeamExplorerBase.cs" />
@@ -154,8 +156,8 @@
     <None Include="VS2013.extension.vsixmanifest" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'VS2012_Debug' or '$(Configuration)' == 'VS2012_Release'">
-      <Content Include="Resources\Preview2012.png">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Resources\Preview2012.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Reference Include="Accessibility" />
@@ -197,7 +199,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'VS2013_Debug' or '$(Configuration)' == 'VS2013_Release'">
-      <Content Include="Resources\Preview2013.png">
+    <Content Include="Resources\Preview2013.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
