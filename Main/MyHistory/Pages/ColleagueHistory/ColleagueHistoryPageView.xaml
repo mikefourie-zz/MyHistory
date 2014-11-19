@@ -108,7 +108,7 @@
 
         <!-- Changesets -->
         <WrapPanel Orientation="Vertical" Grid.Row="3" Margin="0,0,0,6">
-            <TextBlock FontWeight="Bold">Changesets</TextBlock>
+            <TextBlock FontWeight="Bold"><Hyperlink x:Name="ChangesetsLink" Click="ChangesetsLink_Click">Changesets</Hyperlink></TextBlock>
             <ListView x:Name="changesetList" ItemsSource="{Binding Path=ParentSection.Changesets}" BorderThickness="0"
                   SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                   mvvm:FrameworkElementBehaviors.IgnoreMouseWheel="True"  

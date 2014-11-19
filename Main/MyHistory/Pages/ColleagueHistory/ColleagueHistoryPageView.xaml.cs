@@ -277,5 +277,10 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
         {
             this.PerformSearch();
         }
+
+        private void ChangesetsLink_Click(object sender, RoutedEventArgs e)
+        {
+            this.ParentSection.ShowChangesets();
+        }
     }
 }

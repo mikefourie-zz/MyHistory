@@ -374,5 +374,24 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
                 this.IsBusy = false;
             }
         }
+
+        public void ShowChangesets()
+        {
+            ITeamFoundationContext context = this.CurrentContext;
+            if (context != null && context.HasCollection && context.HasTeamProject)
+            {
+                VersionControlServer vcs = context.TeamProjectCollection.GetService<VersionControlServer>();
+                if (vcs != null)
+                {
+                    string user = this.UserAccountName;
+                    string path = "$/" + context.TeamProjectName;
+                    VersionControlExt vc = GetVersionControlExt(this.ServiceProvider);
+                    if (vc != null)
+                    {
+                        vc.History.Show(path, VersionSpec.Latest, 0, RecursionType.Full, user, null, null, int.MaxValue, true);
+                    }
+                }
+            }
+        }
     }
 }
