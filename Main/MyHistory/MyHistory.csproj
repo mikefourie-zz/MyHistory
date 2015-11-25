@@ -2,13 +2,14 @@
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
+    <MinimumVisualStudioVersion>$(VisualStudioVersion)</MinimumVisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == ''">
     <Configuration Condition="'$(VisualStudioVersion)' == '11.0'">VS2012_Debug</Configuration>
     <Configuration Condition="'$(VisualStudioVersion)' == '12.0'">VS2013_Debug</Configuration>
+    <Configuration Condition="'$(VisualStudioVersion)' == '14.0'">VS2015_Debug</Configuration>
   </PropertyGroup>
   <PropertyGroup>
     <SccProjectName>SAK</SccProjectName>
@@ -95,6 +96,25 @@
     <CodeAnalysisRuleSet>Properties\ALMRangersRuleSet.ruleset</CodeAnalysisRuleSet>
     <DeployExtension>False</DeployExtension>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'VS2015_Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\VS2015_Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'VS2015_Release|AnyCPU'">
+    <OutputPath>bin\VS2015_Release\</OutputPath>
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>Properties\ALMRangersRuleSet.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Base\TeamExplorerBase.cs" />
     <Compile Include="Base\TeamExplorerBaseNavigationItem.cs" />
@@ -147,6 +167,7 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <CodeAnalysisDictionary Include="Properties\ALMRangersCodeAnalysisDictionary.xml" />
+    <None Include="VS2015.extension.vsixmanifest" />
     <None Include="VS2012.extension.vsixmanifest" />
     <EmbeddedResource Include="Resources\User-Find.png" />
     <EmbeddedResource Include="Resources\MyHistory.png">
@@ -242,6 +263,52 @@
     <Reference Include="Microsoft.VisualStudio.Shell.11.0, Version=12.0.0.0">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>AssemblyReferences\VS2013\Microsoft.VisualStudio.Shell.11.0.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'VS2015_Debug' or '$(Configuration)' == 'VS2015_Release'">
+    <Content Include="Resources\Preview2013.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Reference Include="Microsoft.TeamFoundation.Client, Version=14.0.0.0">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>AssemblyReferences\VS2015\Microsoft.TeamFoundation.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Common, Version=14.0.0.0">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>AssemblyReferences\VS2015\Microsoft.TeamFoundation.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Controls, Version=14.0.0.0">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>AssemblyReferences\VS2015\Microsoft.TeamFoundation.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.VersionControl.Client, Version=14.0.0.0">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>AssemblyReferences\VS2015\Microsoft.TeamFoundation.VersionControl.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Client, Version=14.0.0.0">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>AssemblyReferences\VS2015\Microsoft.TeamFoundation.WorkItemTracking.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Controls, Version=14.0.0.0">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>AssemblyReferences\VS2015\Microsoft.TeamFoundation.WorkItemTracking.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TeamFoundation.VersionControl, Version=14.0.0.0">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>AssemblyReferences\VS2015\Microsoft.VisualStudio.TeamFoundation.VersionControl.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TeamFoundation.WorkItemTracking, Version=14.0.0.0">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>AssemblyReferences\VS2015\Microsoft.VisualStudio.TeamFoundation.WorkItemTracking.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Services.Common, Version=14.0.0.0">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>AssemblyReferences\VS2015\Microsoft.VisualStudio.Services.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.11.0, Version=14.0.0.0">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>AssemblyReferences\VS2015\Microsoft.VisualStudio.Shell.11.0.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -348,6 +415,7 @@
     <ItemGroup>
       <SourceVsixManifest Condition="'$(Configuration)' == 'VS2012_Debug' or '$(Configuration)' == 'VS2012_Release'" Include="vs2012.extension.vsixmanifest" />
       <SourceVsixManifest Condition="'$(Configuration)' == 'VS2013_Debug' or '$(Configuration)' == 'VS2013_Release'" Include="vs2013.extension.vsixmanifest" />
+      <SourceVsixManifest Condition="'$(Configuration)' == 'VS2015_Debug' or '$(Configuration)' == 'VS2015_Release'" Include="vs2015.extension.vsixmanifest" />
     </ItemGroup>
   </Target>
 </Project>
