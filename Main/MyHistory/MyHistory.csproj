@@ -114,6 +114,7 @@
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>Properties\ALMRangersRuleSet.ruleset</CodeAnalysisRuleSet>
+    <DeployExtension>False</DeployExtension>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Base\TeamExplorerBase.cs" />

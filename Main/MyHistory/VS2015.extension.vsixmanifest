@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="0FCD7C9D-99C5-4B73-B963-39A6ACCF1DBE" Version="3.0.0.0" Language="en-US" Publisher="ALM Rangers" />
+    <Identity Id="0FCD7C9D-99C5-4B73-B963-39A6ACCF1DBE" Version="3.1.0.0" Language="en-US" Publisher="ALM Rangers" />
     <DisplayName>MyHistory for Visual Studio 2015</DisplayName>
     <Description xml:space="preserve">Visual Studio ALM Rangers MyHistory Team Explorer Extension - by Mike Fourie</Description>
-    <MoreInfo>http://visualstudiogallery.msdn.microsoft.com/5cd2ba57-5e52-493c-a581-b3f7571f0aec</MoreInfo>
+    <MoreInfo>https://visualstudiogallery.msdn.microsoft.com/7e5d7f16-0b27-4034-92c7-a4afedd540e1</MoreInfo>
     <License>Resources\License.rtf</License>
     <Icon>Resources\ExtensionImage.png</Icon>
     <PreviewImage>Resources\Preview2013.png</PreviewImage>
