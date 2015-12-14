@@ -2,13 +2,11 @@
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
     <MinimumVisualStudioVersion>$(VisualStudioVersion)</MinimumVisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == ''">
-    <Configuration Condition="'$(VisualStudioVersion)' == '11.0'">VS2012_Debug</Configuration>
-    <Configuration Condition="'$(VisualStudioVersion)' == '12.0'">VS2013_Debug</Configuration>
     <Configuration Condition="'$(VisualStudioVersion)' == '14.0'">VS2015_Debug</Configuration>
   </PropertyGroup>
   <PropertyGroup>
@@ -50,51 +48,6 @@
     <AssemblyName>Microsoft.ALMRangers.Samples.MyHistory</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <GeneratePkgDefFile>false</GeneratePkgDefFile>
-    <!-- <IncludeAssemblyInVSIXContainer>false</IncludeAssemblyInVSIXContainer>
-    <IncludeDebugSymbolsInVSIXContainer>false</IncludeDebugSymbolsInVSIXContainer>
-    <IncludeDebugSymbolsInLocalVSIXDeployment>false</IncludeDebugSymbolsInLocalVSIXDeployment>
-    <CopyBuildOutputToOutputDirectory>false</CopyBuildOutputToOutputDirectory>
-    <CopyOutputSymbolsToOutputDirectory>false</CopyOutputSymbolsToOutputDirectory>-->
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'VS2012_Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\VS2012_Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'VS2012_Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\VS2012_Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>Properties\ALMRangersRuleSet.ruleset</CodeAnalysisRuleSet>
-    <DeployExtension>False</DeployExtension>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'VS2013_Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\VS2013_Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'VS2013_Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\VS2013_Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>Properties\ALMRangersRuleSet.ruleset</CodeAnalysisRuleSet>
-    <DeployExtension>False</DeployExtension>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'VS2015_Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -169,102 +122,11 @@
     </Content>
     <CodeAnalysisDictionary Include="Properties\ALMRangersCodeAnalysisDictionary.xml" />
     <None Include="VS2015.extension.vsixmanifest" />
-    <None Include="VS2012.extension.vsixmanifest" />
     <EmbeddedResource Include="Resources\User-Find.png" />
     <EmbeddedResource Include="Resources\MyHistory.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="Resources\Package.ico" />
-    <None Include="VS2013.extension.vsixmanifest" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(Configuration)' == 'VS2012_Debug' or '$(Configuration)' == 'VS2012_Release'">
-    <Content Include="Resources\Preview2012.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Reference Include="Accessibility" />
-    <Reference Include="Microsoft.TeamFoundation.Client, Version=11.0.0.0">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>AssemblyReferences\VS2012\Microsoft.TeamFoundation.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.TeamFoundation.Common, Version=11.0.0.0">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>AssemblyReferences\VS2012\Microsoft.TeamFoundation.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.TeamFoundation.Controls, Version=11.0.0.0">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>AssemblyReferences\VS2012\Microsoft.TeamFoundation.Controls.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.TeamFoundation.VersionControl.Client, Version=11.0.0.0">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>AssemblyReferences\VS2012\Microsoft.TeamFoundation.VersionControl.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Client, Version=11.0.0.0">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>AssemblyReferences\VS2012\Microsoft.TeamFoundation.WorkItemTracking.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Controls, Version=11.0.0.0">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>AssemblyReferences\VS2012\Microsoft.TeamFoundation.WorkItemTracking.Controls.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.TeamFoundation.VersionControl, Version=11.0.0.0">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>AssemblyReferences\VS2012\Microsoft.VisualStudio.TeamFoundation.VersionControl.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.TeamFoundation.WorkItemTracking, Version=11.0.0.0">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>AssemblyReferences\VS2012\Microsoft.VisualStudio.TeamFoundation.WorkItemTracking.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Shell.11.0, Version=11.0.0.0">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>AssemblyReferences\VS2012\Microsoft.VisualStudio.Shell.11.0.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup Condition="'$(Configuration)' == 'VS2013_Debug' or '$(Configuration)' == 'VS2013_Release'">
-    <Content Include="Resources\Preview2013.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Reference Include="Microsoft.TeamFoundation.Client, Version=12.0.0.0">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>AssemblyReferences\VS2013\Microsoft.TeamFoundation.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.TeamFoundation.Common, Version=12.0.0.0">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>AssemblyReferences\VS2013\Microsoft.TeamFoundation.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.TeamFoundation.Controls, Version=12.0.0.0">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>AssemblyReferences\VS2013\Microsoft.TeamFoundation.Controls.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.TeamFoundation.VersionControl.Client, Version=12.0.0.0">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>AssemblyReferences\VS2013\Microsoft.TeamFoundation.VersionControl.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Client, Version=12.0.0.0">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>AssemblyReferences\VS2013\Microsoft.TeamFoundation.WorkItemTracking.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Controls, Version=12.0.0.0">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>AssemblyReferences\VS2013\Microsoft.TeamFoundation.WorkItemTracking.Controls.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.TeamFoundation.VersionControl, Version=12.0.0.0">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>AssemblyReferences\VS2013\Microsoft.VisualStudio.TeamFoundation.VersionControl.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.TeamFoundation.WorkItemTracking, Version=12.0.0.0">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>AssemblyReferences\VS2013\Microsoft.VisualStudio.TeamFoundation.WorkItemTracking.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Services.Common, Version=12.0.0.0">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>AssemblyReferences\VS2013\Microsoft.VisualStudio.Services.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Shell.11.0, Version=12.0.0.0">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>AssemblyReferences\VS2013\Microsoft.VisualStudio.Shell.11.0.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'VS2015_Debug' or '$(Configuration)' == 'VS2015_Release'">
     <Content Include="Resources\Preview2013.png">
@@ -274,38 +136,47 @@
     <Reference Include="Microsoft.TeamFoundation.Client, Version=14.0.0.0">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>AssemblyReferences\VS2015\Microsoft.TeamFoundation.Client.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.TeamFoundation.Common, Version=14.0.0.0">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>AssemblyReferences\VS2015\Microsoft.TeamFoundation.Common.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.TeamFoundation.Controls, Version=14.0.0.0">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>AssemblyReferences\VS2015\Microsoft.TeamFoundation.Controls.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.TeamFoundation.VersionControl.Client, Version=14.0.0.0">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>AssemblyReferences\VS2015\Microsoft.TeamFoundation.VersionControl.Client.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Client, Version=14.0.0.0">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>AssemblyReferences\VS2015\Microsoft.TeamFoundation.WorkItemTracking.Client.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Controls, Version=14.0.0.0">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>AssemblyReferences\VS2015\Microsoft.TeamFoundation.WorkItemTracking.Controls.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TeamFoundation.VersionControl, Version=14.0.0.0">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>AssemblyReferences\VS2015\Microsoft.VisualStudio.TeamFoundation.VersionControl.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TeamFoundation.WorkItemTracking, Version=14.0.0.0">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>AssemblyReferences\VS2015\Microsoft.VisualStudio.TeamFoundation.WorkItemTracking.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Services.Common, Version=14.0.0.0">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>AssemblyReferences\VS2015\Microsoft.VisualStudio.Services.Common.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.11.0, Version=14.0.0.0">
       <SpecificVersion>False</SpecificVersion>
@@ -414,8 +285,6 @@
   <!-- Redefine the FindSourceVsixManifest target -->
   <Target Name="FindSourceVsixManifest">
     <ItemGroup>
-      <SourceVsixManifest Condition="'$(Configuration)' == 'VS2012_Debug' or '$(Configuration)' == 'VS2012_Release'" Include="vs2012.extension.vsixmanifest" />
-      <SourceVsixManifest Condition="'$(Configuration)' == 'VS2013_Debug' or '$(Configuration)' == 'VS2013_Release'" Include="vs2013.extension.vsixmanifest" />
       <SourceVsixManifest Condition="'$(Configuration)' == 'VS2015_Debug' or '$(Configuration)' == 'VS2015_Release'" Include="vs2015.extension.vsixmanifest" />
     </ItemGroup>
   </Target>
