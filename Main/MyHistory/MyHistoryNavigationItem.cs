@@ -7,7 +7,7 @@ namespace Microsoft.ALMRangers.Samples.MyHistory
     using Microsoft.TeamFoundation.Controls;
     using Microsoft.VisualStudio.Shell;
 
-    [TeamExplorerNavigationItem(MyHistoryNavigationItem.LinkId, 200)]
+    [TeamExplorerNavigationItem(MyHistoryNavigationItem.LinkId, 200, TargetPageId = MyHistoryNavigationItem.LinkId)]
     public class MyHistoryNavigationItem : TeamExplorerBaseNavigationItem
     {
         public const string LinkId = "e49a882b-1677-46a9-93b4-db290943bbcd";
