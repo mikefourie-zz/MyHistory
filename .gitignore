@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+*.suo
+/Main/MyHistory/bin/VS2017_Debug
+/Main/MyHistory/obj
+/Main/packages
+/Main/MyHistory/MyHistory.csproj.user
+/.vs/
+/Main/.vs/
+/Main/MyHistory.sln.DotSettings.user
+/Main/MyHistory/bin/
